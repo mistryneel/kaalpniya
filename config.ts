@@ -6,7 +6,7 @@ export const companyConfig = {
     theme: "anotherwrapper",
     homeUrl: "https://apps.anotherwrapper.com",
     appUrl: "/",
-    description: "Build your AI startup in hours using our demo apps",
+    description: "Build your AI startup in hours using our demo apps!",
     logo: "/logo.png",
     navbarLinks: [
       { label: "Home", href: "https://anotherwrapper.com" },

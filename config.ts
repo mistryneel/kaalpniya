@@ -29,7 +29,7 @@ export const companyConfig = {
 };
 
 /// Core Website config
-export const companyName = "FD Digital";
+export const companyName = "Holding Company Name";
 export const defaultTitle =
   "Build your AI startup in hours using our customizable demo apps";
 export const defaultDescription =

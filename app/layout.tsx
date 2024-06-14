@@ -7,12 +7,14 @@ import {
   companyConfig,
   defaultOgImage,
   favicon,
+  defaultKeywords,
 } from "@/config";
 
 // SEO Optimization
 export const metadata = {
   title: `${defaultTitle}`,
   description: defaultDescription,
+  keywords: defaultKeywords,
   icons: [{ rel: "icon", url: `${companyConfig.company.homeUrl}${favicon}` }],
   openGraph: {
     url: companyConfig.company.homeUrl,

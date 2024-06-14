@@ -22,7 +22,7 @@ export default function NotFoundPage() {
             <IconMoneybag className="h-6 w-6" />
           </DockIcon>
 
-          <DockIcon href="/demos">
+          <DockIcon href="https://apps.anotherwrapper.com/">
             <LaptopIcon className="h-6 w-6" />
           </DockIcon>
         </Dock>

@@ -4,20 +4,26 @@ import { NextResponse, NextRequest } from "next/server";
 import { toolConfig } from "@/app/audio/toolConfig";
 import { z } from "zod";
 
-const NoteSchema = z.object({
+const SummarizeSchema = z.object({
   title: z
     .string()
-    .describe("Short descriptive title of what the voice message is about"),
+    .min(5)
+    .nonempty()
+    .describe(
+      "A concise, descriptive title summarizing the main topic of the voice message"
+    ),
   summary: z
     .string()
+    .min(100)
+    .max(500)
     .describe(
-      "A short summary in the first person point of view of the person recording the voice message"
-    )
-    .max(500),
+      "A comprehensive summary in the first person point of view of the person recording the voice message. It should cover key points, context, and any expressed emotions or intentions, avoiding repetitive or generic phrases."
+    ),
   actionItems: z
     .array(z.string())
+    .nonempty()
     .describe(
-      "A list of action items from the voice note, short and to the point. Make sure all action item lists are fully resolved if they are nested"
+      "A clear and concise list of action items derived from the voice note. Ensure all action items are explicitly stated and resolved if nested"
     ),
 });
 
@@ -26,7 +32,7 @@ const chat = new ChatGroq({
   maxTokens: 500,
 });
 
-const chatWithStructuredOutput = chat.withStructuredOutput(NoteSchema);
+const chatWithStructuredOutput = chat.withStructuredOutput(SummarizeSchema);
 
 export async function POST(request: NextRequest) {
   const supabase = createClient();

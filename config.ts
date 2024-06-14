@@ -1,6 +1,6 @@
 /// Core Website config
 export const companyConfig = {
-  ////// Base config
+  ////// Base config used mainly for layout (@/components/navbar/Navbar-1.tsx and @/components/footer/Footer-1.tsx)
   company: {
     name: "AnotherWrapper",
     theme: "anotherwrapper",
@@ -37,12 +37,11 @@ export const defaultDescription =
 export const defaultKeywords =
   "openai, gpt-3, llama, replicate, groq, mixtral, ai app, boilerplate, api endpoint, next.js, react, starter kit, boilerplate, ai, artificial intelligence, node.js, express, stripe";
 export const defaultOgImage = "/og.png";
-export const logo = "/logo.png";
 export const favicon = "/favicon.ico";
 
 // LEGAL STUFF
-export const privacyPolicyUrl = "https://anotherwrapper.com/privacy.html";
-export const tosUrl = "https://anotherwrapper.com/terms.html";
+export const privacyPolicyUrl = "https://anotherwrapper.com/privacy";
+export const tosUrl = "https://anotherwrapper.com/terms";
 
 // Auth
 export const authImage = "/hero.webp";

@@ -4,7 +4,7 @@ import { NextResponse, NextRequest } from "next/server";
 import { toolConfig } from "@/app/audio/toolConfig";
 import { z } from "zod";
 
-const NoteSchema = z.object({
+const SummarizeSchema = z.object({
   title: z
     .string()
     .describe("Short descriptive title of what the voice message is about"),
@@ -26,7 +26,7 @@ const chat = new ChatGroq({
   maxTokens: 500,
 });
 
-const chatWithStructuredOutput = chat.withStructuredOutput(NoteSchema);
+const chatWithStructuredOutput = chat.withStructuredOutput(SummarizeSchema);
 
 export async function POST(request: NextRequest) {
   const supabase = createClient();

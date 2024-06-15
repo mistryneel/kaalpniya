@@ -14,56 +14,61 @@ const RecordVoicePage = (user: any) => {
   const router = useRouter();
 
   async function startRecording() {
-    setIsRunning(true);
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    const recorder = new MediaRecorder(stream);
-    let audioChunks: any = [];
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const recorder = new MediaRecorder(stream);
+      let audioChunks: any = [];
 
-    recorder.ondataavailable = (e) => {
-      audioChunks.push(e.data);
-    };
+      recorder.ondataavailable = (e) => {
+        audioChunks.push(e.data);
+      };
 
-    recorder.onstop = async () => {
-      const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
-      const formData = new FormData();
-      formData.append("file", audioBlob);
-      formData.append("uploadPath", "audio");
+      recorder.onstop = async () => {
+        const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
+        const formData = new FormData();
+        formData.append("file", audioBlob);
+        formData.append("uploadPath", "audio");
 
-      const response = await fetch("/api/audio/upload", {
-        method: "POST",
-        body: formData,
-      });
-      const result = await response.json();
+        const response = await fetch("/api/audio/upload", {
+          method: "POST",
+          body: formData,
+        });
+        const result = await response.json();
 
-      if (result.error) {
-        console.error("Error uploading audio:", result.error);
-        return;
-      }
+        if (result.error) {
+          console.error("Error uploading audio:", result.error);
+          return;
+        }
 
-      // Trigger transcription after successful upload
-      const transcriptionResponse = await fetch("/api/audio/transcribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          recordingId: result.recordingId,
-          audioUrl: result.url,
-        }),
-      });
+        const transcriptionResponse = await fetch("/api/audio/transcribe", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            recordingId: result.recordingId,
+            audioUrl: result.url,
+          }),
+        });
 
-      const transcriptionResult = await transcriptionResponse.json();
+        const transcriptionResult = await transcriptionResponse.json();
 
-      if (transcriptionResponse.status !== 200) {
-        console.error("Error in transcription:", transcriptionResult.error);
-        return;
-      }
+        if (transcriptionResponse.status !== 200) {
+          console.error("Error in transcription:", transcriptionResult.error);
+          return;
+        }
 
-      if (user) {
-        router.push(`/audio/${result.recordingId}`);
-      }
-    };
+        if (user) {
+          router.push(`/audio/${result.recordingId}`);
+        }
+      };
 
-    setMediaRecorder(recorder);
-    recorder.start();
+      setMediaRecorder(recorder);
+      recorder.start();
+      setIsRunning(true);
+    } catch (error) {
+      console.error("Error accessing microphone:", error);
+      alert("Please allow access to the microphone and try again.");
+      setTitle("Record new voice note");
+    }
   }
 
   function stopRecording() {

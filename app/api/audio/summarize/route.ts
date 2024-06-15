@@ -8,16 +8,13 @@ const SummarizeSchema = z.object({
   title: z
     .string()
     .min(5)
-    .nonempty()
     .describe(
-      "A concise, descriptive title summarizing the main topic of the voice message"
+      "A short descriptive title summarizing the main topic of the voice message"
     ),
   summary: z
     .string()
-    .min(100)
-    .max(500)
     .describe(
-      "A comprehensive summary in the first person point of view of the person recording the voice message. It should cover key points, context, and any expressed emotions or intentions, avoiding repetitive or generic phrases."
+      "A summary from a third-party perspective describing what is discussed in the voice message."
     ),
   actionItems: z
     .array(z.string())
@@ -29,7 +26,6 @@ const SummarizeSchema = z.object({
 
 const chat = new ChatGroq({
   model: toolConfig.aiModel,
-  maxTokens: 500,
 });
 
 const chatWithStructuredOutput = chat.withStructuredOutput(SummarizeSchema);

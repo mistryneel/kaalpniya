@@ -1,4 +1,4 @@
-import { generateReplicateResponse } from "@/lib/services/replicate/sdxl";
+import { replicate } from "@/lib/replicate";
 import { uploadToSupabase } from "@/lib/hooks/uploadToSupabase";
 import { NextResponse, NextRequest } from "next/server";
 import { reduceUserCredits } from "@/lib/hooks/reduceUserCredits";
@@ -16,11 +16,23 @@ export async function POST(request: NextRequest) {
     const negativePrompt = requestBody.negativePrompt;
 
     // Generate response from Replicate
-    const responseData = await generateReplicateResponse(
-      prompt,
-      negativePrompt,
-      toolConfig.aiModel
-    );
+    const responseData = await replicate.run(toolConfig.aiModel, {
+      input: {
+        width: 768,
+        height: 768,
+        prompt: prompt,
+        refine: "expert_ensemble_refiner",
+        scheduler: "K_EULER",
+        lora_scale: 0.6,
+        num_outputs: 1,
+        guidance_scale: 7.5,
+        apply_watermark: false,
+        high_noise_frac: 0.8,
+        negative_prompt: negativePrompt,
+        prompt_strength: 0.8,
+        num_inference_steps: 25,
+      },
+    });
 
     // Get the image URL from the Replicate response
     const imageUrl = responseData;

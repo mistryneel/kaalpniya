@@ -1,10 +1,10 @@
 // This hook is used to fetch the data from Supabase and return the response + to copy the link to the clipboard
 import { useState, useEffect } from "react";
 
-export const getResponse = (toolPath: string, params: any) => {
+export const getResponse = <T>(toolPath: string, params: any) => {
   const [loading, setLoading] = useState(true);
-  const [output, setOutput] = useState(null);
-  const [input, setInput] = useState(null);
+  const [output, setOutput] = useState<T | null>(null);
+  const [input, setInput] = useState<any>(null);
   const [linkCopied, setLinkCopied] = useState(false);
 
   useEffect(() => {

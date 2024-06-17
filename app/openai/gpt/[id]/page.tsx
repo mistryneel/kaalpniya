@@ -1,5 +1,5 @@
 import { toolConfig } from "../toolConfig";
-import ResponseLayout from "./responseLayout";
+import ResponseLayout from "./response";
 
 export const metadata = {
   title: toolConfig.metadata.title,

@@ -1,4 +1,4 @@
-import { generateOpenAIResponse } from "@/lib/services/openai/gpt";
+import { ChatOpenAI } from "@langchain/openai";
 import { uploadToSupabase } from "@/lib/hooks/uploadToSupabase";
 import { NextResponse, NextRequest } from "next/server";
 import { reduceUserCredits } from "@/lib/hooks/reduceUserCredits";
@@ -13,39 +13,29 @@ export async function POST(request: NextRequest) {
     const { generatePrompt } = await import(`@/app/${toolPath}/prompt`);
     const { functionSchema } = await import(`@/app/${toolPath}/schema`);
 
-    // Generate prompt and function call
+    // Generate prompt & function call
     const prompt = generatePrompt(requestBody);
     const functionCall = functionSchema[0];
 
-    // Generate response from OpenAI
-    const responseData = await generateOpenAIResponse(
-      prompt,
-      functionCall,
-      toolConfig.aiModel,
-      toolConfig.systemMessage
-    );
+    // Initialize LangChain's OpenAI
+    const openAI = new ChatOpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+      model: toolConfig.aiModel,
+    });
 
-    // Parse JSON and store in database
-    let openAIResponse;
-    if (
-      responseData &&
-      responseData.choices &&
-      responseData.choices[0] &&
-      responseData.choices[0].message &&
-      responseData.choices[0].message.tool_calls &&
-      responseData.choices[0].message.tool_calls[0] &&
-      responseData.choices[0].message.tool_calls[0].function &&
-      responseData.choices[0].message.tool_calls[0].function.arguments
-    ) {
-      openAIResponse = JSON.parse(
-        responseData.choices[0].message.tool_calls[0].function.arguments
-      );
-    }
+    const chatWithStructuredOutput = openAI.withStructuredOutput(functionCall);
 
-    // Store the response in Supabase
+    const responseData = await chatWithStructuredOutput.invoke([
+      ["system", String(toolConfig.systemMessage)],
+      ["human", String(prompt)],
+    ]);
+
+    console.log("Response from GPT:", responseData);
+
+    // Store the response in generations table
     const supabaseResponse = await uploadToSupabase(
       requestBody,
-      openAIResponse,
+      responseData,
       toolConfig.toolPath,
       toolConfig.aiModel
     );
@@ -55,7 +45,6 @@ export async function POST(request: NextRequest) {
       await reduceUserCredits(requestBody.email, toolConfig.credits);
     }
 
-    // Return the ID of the stored data, so the client can redirect to the result page
     return new NextResponse(
       JSON.stringify({
         id: supabaseResponse[0].id,

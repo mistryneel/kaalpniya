@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import Loading from "@/components/Loading";
 import Section from "@/components/Section";
@@ -7,13 +8,36 @@ import { getResponse } from "@/lib/hooks/getAIResponse";
 import OutputHero from "@/components/output/OutputHero";
 import OutputSidebar from "@/components/output/OutputSidebar";
 
-export default function ResponseLayout({ params }) {
-  const { loading, output, input, linkCopied, copyLink } = getResponse(
-    toolConfig.toolName,
+interface Params {
+  params: {
+    id: string;
+  };
+}
+
+interface Output {
+  creativeGrowthHacks?: {
+    campaignName: string;
+    description: string;
+    expectedResults: string;
+    trackingMetrics: string;
+  }[];
+  traditionalGrowthTactics?: {
+    tacticName: string;
+    specificActions: string[];
+    expectedImpact: string;
+    toolsRecommended?: string[];
+    keywords?: string[];
+  }[];
+}
+
+export default function ResponseLayout({ params }: Params) {
+  const { loading, output, input, linkCopied, copyLink } = getResponse<Output>(
+    toolConfig.toolPath,
     params
   );
-
-  const [selectedTab, setSelectedTab] = useState("creative");
+  const [selectedTab, setSelectedTab] = useState<"creative" | "traditional">(
+    "creative"
+  );
 
   return (
     <>
@@ -80,38 +104,36 @@ export default function ResponseLayout({ params }) {
                         </thead>
                         <tbody>
                           {output?.creativeGrowthHacks &&
-                            Object.values(output.creativeGrowthHacks).map(
-                              (hack, index) => (
-                                <tr
-                                  className="bg-gray-100 border-b"
-                                  key={`hack-${index}`}
-                                >
-                                  <td className="hidden md:table-cell">
-                                    {index + 1}
-                                  </td>
-                                  <td>
-                                    <span className="font-bold">
-                                      {hack.campaignName}
-                                    </span>
-                                  </td>
-                                  <td>
-                                    <p className="text-xs italic">
-                                      {hack.description}
-                                    </p>
-                                  </td>
-                                  <td className="text-xs">
-                                    <p className="font-bold">
-                                      ✅ Expected Results:
-                                    </p>
-                                    {hack.expectedResults}
-                                    <p className="mt-5 font-bold">
-                                      🔍 Tracking Metrics:
-                                    </p>
-                                    {hack.trackingMetrics}
-                                  </td>
-                                </tr>
-                              )
-                            )}
+                            output.creativeGrowthHacks.map((hack, index) => (
+                              <tr
+                                className="bg-gray-100 border-b"
+                                key={`hack-${index}`}
+                              >
+                                <td className="hidden md:table-cell">
+                                  {index + 1}
+                                </td>
+                                <td>
+                                  <span className="font-bold">
+                                    {hack.campaignName}
+                                  </span>
+                                </td>
+                                <td>
+                                  <p className="text-xs italic">
+                                    {hack.description}
+                                  </p>
+                                </td>
+                                <td className="text-xs">
+                                  <p className="font-bold">
+                                    ✅ Expected Results:
+                                  </p>
+                                  {hack.expectedResults}
+                                  <p className="mt-5 font-bold">
+                                    🔍 Tracking Metrics:
+                                  </p>
+                                  {hack.trackingMetrics}
+                                </td>
+                              </tr>
+                            ))}
                         </tbody>
                       </table>
                     </div>
@@ -120,7 +142,7 @@ export default function ResponseLayout({ params }) {
                   {selectedTab === "traditional" && (
                     <div className="space-y-8">
                       {output?.traditionalGrowthTactics &&
-                        Object.values(output.traditionalGrowthTactics).map(
+                        output.traditionalGrowthTactics.map(
                           (tactic, tacticKey) => (
                             <div
                               className="overflow-x-auto bg-white border rounded-xl border-base-200 p-4"

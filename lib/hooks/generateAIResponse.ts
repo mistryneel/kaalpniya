@@ -37,6 +37,9 @@ export const generateAIResponse = (
       case "groq":
         endpoint = "groq";
         break;
+      case "claude":
+        endpoint = "claude";
+        break;
     }
 
     try {

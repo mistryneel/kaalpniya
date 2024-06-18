@@ -42,7 +42,7 @@ export const toolConfig: ToolConfig = {
   },
 
   ////// Form input
-  type: "dalle", // options: 'vision' for GPT-4o, 'dalle', 'sdxl', 'groq' & 'gpt'.
+  type: "dalle",
   fields: [
     {
       label: "🎯 Keywords",

@@ -44,7 +44,7 @@ export const toolConfig: ToolConfig = {
   },
 
   ////// Form input
-  type: "vision", // options: 'vision' for GPT-4o, 'dalle', 'sdxl', 'groq' & 'gpt'.
+  type: "vision",
   fields: [
     {
       label: "📝 Description Type",

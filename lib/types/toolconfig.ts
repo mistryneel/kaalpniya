@@ -63,7 +63,8 @@ export interface ToolConfig {
   // Have a look at the following demo app examples to see how this is used:
   //// openai/gpt, openai/vision, openai/dalle, openai/sdxl and groq/llama
 
-  type?: string; // type of app - based on this it knows what to include in the form + which API to call. options: 'vision' for GPT-4o, 'dalle', 'sdxl', 'groq' & 'gpt'.
+  type?: string; // type of app - based on this it knows what to include in the form + which API to call.
+  // type options: 'vision' for GPT-4o, 'dalle', 'sdxl', 'groq', 'claude' & 'gpt'.
   fields?: FormFields[]; // Array of form fields
   submitText?: string; // Text for the submit button
   submitTextGenerating?: string; // Text for the submit button when generating

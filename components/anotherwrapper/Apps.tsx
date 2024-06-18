@@ -65,7 +65,16 @@ export default function Apps() {
       description:
         "Upload PDF to Cloudflare R2, store embeddings in Supabase & chat with it using GPT",
     },
+    {
+      href: "/claude",
+      title: "JSON or text with Claude 3",
+      tags: ["Anthropic", "Claude 3"],
+      image: "/apps/claude.webp",
+      description:
+        "Use Claude 3 to return a business plan in structured JSON format. Store data in Supabase",
+    },
   ];
+
   const getGridClass = () => {
     const itemCount = tools.length;
     if (itemCount >= 3) {

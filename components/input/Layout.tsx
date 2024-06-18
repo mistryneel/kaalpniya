@@ -63,6 +63,7 @@ export default function InputCapture({
         <div className="md:w-1/2">
           {toolConfig.type === "gpt" ||
           toolConfig.type === "groq" ||
+          toolConfig.type === "claude" ||
           toolConfig.type === "vision" ? (
             emptyStateComponent
           ) : (toolConfig.type === "sdxl" || toolConfig.type === "dalle") &&

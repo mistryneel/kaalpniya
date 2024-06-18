@@ -38,7 +38,7 @@ export const toolConfig: ToolConfig = {
     "You are a talented personal coach. You are helping a client build his personal brand. Only reply with the JSON, do not return anything else.",
 
   ////// Form input
-  type: "groq", // options: 'vision' for GPT-4o, 'dalle', 'sdxl', 'groq' & 'gpt'.
+  type: "groq",
   fields: [
     {
       label: "💡 Personal Brand Statement",

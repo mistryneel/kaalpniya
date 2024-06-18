@@ -38,7 +38,7 @@ export const toolConfig: ToolConfig = {
     "You are a talented personal coach. You are helping a client build his marketing plan. Only reply with the JSON, do not return anything else.",
 
   ////// Form input
-  type: "gpt", // options: 'vision' for GPT-4o, 'dalle', 'sdxl', 'groq' & 'gpt'.
+  type: "gpt",
   fields: [
     {
       label: "🎯 Your business idea",

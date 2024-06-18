@@ -45,7 +45,7 @@ export const toolConfig: ToolConfig = {
   },
 
   ////// Form input
-  type: "sdxl", // options: 'vision' for GPT-4o, 'dalle', 'sdxl', 'groq' & 'gpt'.
+  type: "sdxl",
   fields: [
     {
       label: "✅ What image would you like to generate?",

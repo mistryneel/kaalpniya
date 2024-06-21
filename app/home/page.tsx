@@ -24,10 +24,10 @@ export default async function Page() {
   // const userEmail = user.email;
   // const userName = userMetadata.full_name || userMetadata.name;
 
-  // if (userName && userEmail) {
+  // if (userEmail) {
   //   const contactProperties = {
-  //     firstName: userName,
   //     purchased: false,
+  //     ...(userName && { firstName: userName }),
   //   };
 
   //   await loops.createContact(userEmail, contactProperties);

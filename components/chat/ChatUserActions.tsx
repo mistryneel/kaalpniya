@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { PlusCircleIcon } from "lucide-react";
 import { createClient } from "@/lib/utils/supabase/client";
 import { useRouter } from "next/navigation";
+import { toolConfig } from "@/app/chat/toolConfig";
 
 interface UserActionsProps {
   user: any;
@@ -24,7 +25,7 @@ const UserActions: FC<UserActionsProps> = ({ user, onNewChat }) => {
       const { data, error } = await supabase
         .from("conversations")
         .insert([
-          { user_id: user.id, model_used: "gpt-3.5-turbo-1106", type: "chat" },
+          { user_id: user.id, model_used: toolConfig.aiModel, type: "chat" },
         ])
         .select();
 

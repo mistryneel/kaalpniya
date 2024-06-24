@@ -4,7 +4,7 @@ export async function checkUserProfile(userEmail: string) {
   const { data: user, error } = await supabase
     .from("profiles")
     .select()
-    .eq("email", userEmail)
+    .eq("email", userEmail.toLowerCase())
     .single();
 
   if (error) {
@@ -22,7 +22,7 @@ export async function updateUserProfile(
   const { error: updateError } = await supabase
     .from("profiles")
     .update({ purchase: purchaseType })
-    .eq("email", userEmail);
+    .eq("email", userEmail.toLowerCase());
 
   if (updateError) {
     console.error("Error updating user profile:", updateError);
@@ -33,7 +33,7 @@ export async function addUserCredits(userEmail: string, creditsToAdd: number) {
   const { data: user, error: selectError } = await supabase
     .from("profiles")
     .select("credits")
-    .eq("email", userEmail)
+    .eq("email", userEmail.toLowerCase())
     .single();
 
   if (selectError) {
@@ -47,7 +47,7 @@ export async function addUserCredits(userEmail: string, creditsToAdd: number) {
   const { error: updateError } = await supabase
     .from("profiles")
     .update({ credits: newCredits })
-    .eq("email", userEmail);
+    .eq("email", userEmail.toLowerCase());
 
   if (updateError) {
     console.error("Error updating user profile:", updateError);
@@ -61,7 +61,7 @@ export async function updatePurchasesTable(
   purchaseType: string
 ) {
   const insertSubscriptionsPayload = {
-    user_email: userEmail,
+    user_email: userEmail.toLowerCase(),
     purchase_id: purchaseId,
     payload: payload,
     type: purchaseType,

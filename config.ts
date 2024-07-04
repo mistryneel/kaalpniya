@@ -48,5 +48,9 @@ export const authImage = "/hero.webp";
 
 // Inside routing
 export const homePage = "/home";
-export const redirectTo =
-  "https://apps.anotherwrapper.com/auth/confirm?next=/home";
+const getRedirectUrl = () => {
+  const baseUrl = process.env.PRODUCTION_URL || "http://localhost:3000";
+  return `${baseUrl}/auth/confirm?next=/home`;
+};
+
+export const redirectTo = getRedirectUrl();

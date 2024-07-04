@@ -1,35 +1,28 @@
-"use client";
-import { createClient } from "@/lib/utils/supabase/client";
-import { redirectTo } from "@/config";
-
 export default function GoogleSignInButton() {
   const signInWithGoogle = async () => {
-    const supabase = createClient();
-
     try {
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: "google",
-        options: {
-          redirectTo: redirectTo,
+      const response = await fetch("/api/auth/google", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
       });
 
-      if (error) throw error;
-      return new Response(JSON.stringify({ data: data }), {
-        status: 200,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const data = await response.json();
+
+      if (!response.ok) throw new Error(data.message);
+
+      if (data.url) {
+        // Redirect the user to the Supabase-provided URL
+        window.location.href = data.url;
+      } else {
+        throw new Error("No URL returned from the server");
+      }
     } catch (error) {
-      return new Response(JSON.stringify({ error: error }), {
-        status: 400,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      console.error("Error initiating Google Sign-In:", error);
     }
   };
+
   return (
     <div className="w-full w-full">
       <button

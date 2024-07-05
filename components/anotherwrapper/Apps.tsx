@@ -73,6 +73,14 @@ export default function Apps() {
       description:
         "Use Claude 3 to return a business plan in structured JSON format. Store data in Supabase",
     },
+    {
+      href: "/voice",
+      title: "Text to lifelike speech",
+      tags: ["Elevenlabs", "Text to Speech"],
+      image: "/apps/text-to-speech.webp",
+      description:
+        "Convert text to lifelike speech using 26+ languages and over 1000 voices, powered by ElevenLabs AI technology",
+    },
   ];
 
   const getGridClass = () => {
@@ -119,7 +127,7 @@ export default function Apps() {
                       {tool.tags.map((tag, index) => (
                         <span
                           key={tag}
-                          className={`border bg-primary text-primary-content border-base-200 py-1 px-4 text-sm rounded-xl ${
+                          className={`border bg-base-100 text-base-content py-1 px-4 text-sm rounded-xl ${
                             tool.tags.length === 1
                               ? "w-full text-center"
                               : " md:w-auto"

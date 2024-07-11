@@ -4,7 +4,7 @@ export async function generateVisionResponse(
   prompt: any,
   image_url: any,
   aiModel: string,
-  systemMessage: string
+  systemMessage?: string
 ) {
   try {
     console.log("GPT Vision request received for image: ", image_url);

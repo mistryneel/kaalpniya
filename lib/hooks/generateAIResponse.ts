@@ -78,7 +78,10 @@ export const generateAIResponse = (
         }
       } else {
         // Otherwise, redirect to the output page
-        router.push(`/${toolConfig.toolPath}/${id}`);
+        const redirectPath = toolConfig.toolPath
+          ? `/${toolConfig.toolPath}/${id}`
+          : `/${id}`;
+        router.push(redirectPath);
       }
     } catch (error) {
       console.error("Failed to generate responses:", error);

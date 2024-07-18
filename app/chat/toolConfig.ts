@@ -36,6 +36,6 @@ export const toolConfig: ToolConfig = {
   toolPath: "chat",
 
   ////// AI config
-  aiModel: "gpt-3.5-turbo-1106",
+  aiModel: "gpt-4o-mini",
   messagesToInclude: 10,
 };

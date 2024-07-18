@@ -33,7 +33,7 @@ export const toolConfig: ToolConfig = {
   toolPath: "openai/gpt",
 
   ////// AI config
-  aiModel: "gpt-3.5-turbo",
+  aiModel: "gpt-4o-mini",
   systemMessage:
     "You are a talented personal coach. You are helping a client build his marketing plan. Only reply with the JSON, do not return anything else.",
 

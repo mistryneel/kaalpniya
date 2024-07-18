@@ -3,7 +3,7 @@ export default function Apps() {
     {
       href: "/openai/gpt",
       title: "JSON or text with GPT",
-      tags: ["OpenAI", "GPT-3.5/4o"],
+      tags: ["OpenAI", "GPT-4o (mini)"],
       image: "/apps/gpt.webp",
       description:
         "Use GPT to return structured marketing ideas in structured JSON format. Store data in Supabase",
@@ -27,7 +27,7 @@ export default function Apps() {
     {
       href: "/chat",
       title: "Chatbot with Memory",
-      tags: ["OpenAI", "GPT-3.5/4"],
+      tags: ["OpenAI", "GPT-4o (mini)"],
       image: "/apps/chat.webp",
       description:
         "Use Langchain, OpenAI & Supabase to build a customizable GPT-3/GPT-4 chatbot with memory",
@@ -60,7 +60,7 @@ export default function Apps() {
     {
       href: "/pdf",
       title: "Ask your PDF",
-      tags: ["OpenAI", "GPT-3.5/4o"],
+      tags: ["OpenAI", "GPT-4o (mini)"],
       image: "/apps/pdf.webp",
       description:
         "Upload PDF to Cloudflare R2, store embeddings in Supabase & chat with it using GPT",

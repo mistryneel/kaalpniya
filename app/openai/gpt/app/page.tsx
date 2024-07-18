@@ -68,8 +68,8 @@ export default async function Page() {
             <IconOpenAI className="w-4 h-4" />
           </span>
           <span className="ml-2">
-            This demo application uses OpenAI's GPT-3.5 (or GPT-4o) tool calling
-            to return structured JSON output.
+            This demo application uses OpenAI's GPT-4o mini (or GPT-4o) tool
+            calling to return structured JSON output.
           </span>
         </li>
         <li className="text-l flex">

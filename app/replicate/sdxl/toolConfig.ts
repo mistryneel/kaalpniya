@@ -6,25 +6,26 @@ export const toolConfig: ToolConfig = {
   company: {
     name: "SDXLStudio",
     theme: "sdxl",
-    homeUrl: "/replicate/sdxl",
-    appUrl: "/replicate/sdxl/app",
-    description: "Generate stunning images with SDXL and AI",
+    homeUrl: "/apps/replicate/sdxl",
+    appUrl: "/apps/replicate/sdxl/app",
+    description:
+      "Build your own SDXL AI wrapper image generator in minutes with this demo app that uses Replicate, Cloudflare R2 & Supabase.",
     logo: "https://cdn1.iconfinder.com/data/icons/education-791/512/learning-knowledge-idea-thinking-create-128.png",
     navbarLinks: [
-      { label: "App", href: `/replicate/sdxl/app` },
-      { label: "Home", href: "https://anotherwrapper.com" },
-      { label: "Other apps", href: "https://apps.anotherwrapper.com" },
+      { label: "App", href: `/apps/replicate/sdxl/app` },
+      { label: "Home", href: "/" },
+      { label: "Other apps", href: "/apps" },
       { label: "Blog", href: "/blog" },
     ],
   },
 
   ////// SEO stuff
   metadata: {
-    title: "SDXL Image Studio | AnotherWrapper",
+    title: "SDXL image generator AI wrapper demo app | AnotherWrapper",
     description:
-      "Build your own AI image generation studio using Stable Diffusion XL",
+      "Build your own SDXL AI wrapper image generator in minutes with this demo app that uses Replicate, Cloudflare R2 & Supabase.",
     og_image: "https://indielogs.com/og-image.png",
-    canonical: "https://anotherwrapper.com/replicate/sdxl",
+    canonical: "https://anotherwrapper.com/apps/replicate/sdxl",
   },
 
   ////// Paywall

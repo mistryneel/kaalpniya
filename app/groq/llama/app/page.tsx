@@ -1,4 +1,4 @@
-import InputCapture from "@/components/input/Layout";
+import InputCapture from "@/components/input/Input";
 import PaymentModal from "@/components/paywall/Payment";
 import { createClient } from "@/lib/utils/supabase/server";
 import { toolConfig } from "../toolConfig";
@@ -23,26 +23,29 @@ export default async function Page() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
-    return redirect("/auth");
-  }
+  // if (!user) {
+  //   return redirect("/auth");
+  // }
 
   // If user is logged in, we check if the tool is paywalled.
   // If it is, we check if the user has a valid purchase & enough credits for one generation
   let credits;
-  if (toolConfig.paywall) {
-    const { data: profile } = await supabase
-      .from("profiles")
-      .select("*")
-      .eq("id", user.id)
-      .single();
 
-    credits = profile.credits;
+  if (user) {
+    if (toolConfig.paywall) {
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", user.id)
+        .single();
 
-    console.table(profile);
+      credits = profile.credits;
 
-    if (credits < toolConfig.credits) {
-      return <PaymentModal />;
+      console.table(profile);
+
+      if (credits < toolConfig.credits) {
+        return <PaymentModal />;
+      }
     }
   }
 
@@ -123,11 +126,13 @@ export default async function Page() {
 
   // If the tool is not paywalled or the user has a valid purchase, render the page
   return (
-    <InputCapture
-      toolConfig={toolConfig}
-      userEmail={user ? user.email : undefined}
-      credits={toolConfig.paywall ? credits : undefined}
-      emptyStateComponent={InfoCard}
-    />
+    <div data-theme={toolConfig.company.theme} className="bg-white">
+      <InputCapture
+        toolConfig={toolConfig}
+        userEmail={user ? user.email : undefined}
+        credits={toolConfig.paywall ? credits : undefined}
+        emptyStateComponent={InfoCard}
+      />
+    </div>
   );
 }

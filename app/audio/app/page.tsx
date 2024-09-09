@@ -6,6 +6,8 @@ import { redirect } from "next/navigation";
 import Hello from "@/components/input/Hello";
 import AudioInfo from "@/components/audio/AudioInfo";
 import YourFiles from "@/components/audio/YourFiles";
+import Login from "@/components/input/login";
+import Section from "@/components/Section";
 
 export default async function Page() {
   const supabase = createClient();
@@ -14,55 +16,70 @@ export default async function Page() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
-    return redirect("/auth");
-  }
+  // if (!user) {
+  //   return redirect("/auth");
+  // }
 
   // If user is logged in, we check if the tool is paywalled.
   // If it is, we check if the user has a valid purchase & enough credits for one generation
-  if (toolConfig.paywall) {
-    const { data: profile } = await supabase
-      .from("profiles")
-      .select("*")
-      .eq("id", user.id)
-      .single();
 
-    const { credits } = profile;
+  let credits;
+  let recordings;
 
-    if (credits < toolConfig.credits) {
-      return <PaymentModal />;
+  if (user) {
+    if (toolConfig.paywall) {
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", user.id)
+        .single();
+
+      credits = profile.credits;
+
+      if (credits < toolConfig.credits) {
+        return <PaymentModal />;
+      }
     }
-  }
 
-  // Fetch recordings for the user
-  const { data: recordings, error: recordingsError } = await supabase
-    .from("recordings")
-    .select("*")
-    .eq("user_id", user.id);
+    // Fetch recordings for the user
+    const { data: userRecordings, error: recordingsError } = await supabase
+      .from("recordings")
+      .select("*")
+      .eq("user_id", user.id);
 
-  if (recordingsError) {
-    console.error("Error fetching recordings:", recordingsError);
-    return <div>Error fetching recordings</div>;
+    if (recordingsError) {
+      console.error("Error fetching recordings:", recordingsError);
+      return <div>Error fetching recordings</div>;
+    }
+
+    recordings = userRecordings;
   }
 
   // If the tool is not paywalled or the user has a valid purchase, render the page
   return (
-    <div className="bg-base-100 min-h-screen">
-      <Hello userEmail={user.email} />
-
+    <Section>
       <div className="flex flex-col md:flex-row items-center">
         <div className="w-full md:w-1/2">
           <AudioInfo />
         </div>
-        <div className="w-full md:w-1/2">
-          <RecordVoicePage user={user} />
-          {recordings && recordings.length > 0 && (
-            <div className="mt-8">
-              <YourFiles recordings={recordings} />
-            </div>
-          )}
-        </div>
+
+        {user ? (
+          <>
+            <div className="w-full md:w-1/2">
+              <RecordVoicePage user={user} />
+              {recordings && recordings.length > 0 && (
+                <div className="mt-8">
+                  <YourFiles recordings={recordings} />
+                </div>
+              )}
+            </div>{" "}
+          </>
+        ) : (
+          <div className="p-6 w-full md:w-1/2">
+            <Login />
+          </div>
+        )}
       </div>
-    </div>
+    </Section>
   );
 }

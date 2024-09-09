@@ -6,25 +6,26 @@ export const toolConfig: ToolConfig = {
   company: {
     name: "ImageVision",
     theme: "vision",
-    homeUrl: "/openai/vision",
-    appUrl: "/openai/vision/app",
-    description: "Generate descriptions from your images",
+    homeUrl: "/apps/openai/vision",
+    appUrl: "/apps/openai/vision/app",
+    description:
+      "Build your own GPT-4o vision AI wrapper in minutes with this demo app that uses OpenAI, Cloudflare R2 & Supabase.",
     logo: "https://cdn2.iconfinder.com/data/icons/custom-ios-14-1/60/Camera-512.png",
     navbarLinks: [
-      { label: "App", href: `/openai/vision/app` },
-      { label: "Home", href: "https://anotherwrapper.com" },
-      { label: "Other apps", href: "https://apps.anotherwrapper.com" },
+      { label: "App", href: `/apps/openai/vision/app` },
+      { label: "Home", href: "/" },
+      { label: "Other apps", href: "/apps" },
       { label: "Blog", href: "/blog" },
     ],
   },
 
   ////// SEO stuff
   metadata: {
-    title: "GPT-4o Vision demo application | AnotherWrapper",
+    title: "GPT-4o vision AI wrapper demo application | AnotherWrapper",
     description:
-      "Generate descriptions from your images using GPT-4o vision model.",
+      "Build your own GPT-4o vision AI wrapper in minutes with this demo app that uses OpenAI, Cloudflare R2 & Supabase.",
     og_image: "https://anotherwrapper.com/og.png",
-    canonical: "https://anotherwrapper.com/openai/vision",
+    canonical: "https://anotherwrapper.com/apps/openai/vision",
   },
 
   ////// Paywall

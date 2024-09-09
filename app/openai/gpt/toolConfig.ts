@@ -6,23 +6,25 @@ export const toolConfig: ToolConfig = {
   company: {
     name: "MarketingPlanor",
     theme: "marketing",
-    homeUrl: "/openai/gpt",
-    appUrl: "/openai/gpt/app",
-    description: "Generate marketing ideas for your business",
+    homeUrl: "/apps/openai/gpt",
+    appUrl: "/apps/openai/gpt/app",
+    description:
+      "Build your own GPT-4o Mini AI wrapper in minutes with this demo app that uses OpenAI, LangChain & Supabase.",
     logo: "https://cdn2.iconfinder.com/data/icons/custom-ios-14-1/60/Camera-512.png",
     navbarLinks: [
-      { label: "App", href: `/openai/gpt/app` },
-      { label: "Home", href: "https://anotherwrapper.com" },
-      { label: "Other apps", href: "https://apps.anotherwrapper.com" },
+      { label: "App", href: `/apps/openai/gpt/app` },
+      { label: "Home", href: "/" },
+      { label: "Other apps", href: "/apps" },
       { label: "Blog", href: "/blog" },
     ],
   },
   ////// SEO stuff
   metadata: {
-    title: "Marketing Idea Generator | AnotherWrapper",
-    description: "Generate marketing ideas for your business",
+    title: "GPT-4o mini AI wrapper demo app | AnotherWrapper",
+    description:
+      "Build your own GPT-4o Mini AI wrapper in minutes with this demo app that uses OpenAI, LangChain & Supabase.",
     og_image: "https://anotherwrapper.com/og.png",
-    canonical: "https://anotherwrapper.com/openai/gpt",
+    canonical: "https://anotherwrapper.com/apps/openai/gpt",
   },
 
   ////// Paywall

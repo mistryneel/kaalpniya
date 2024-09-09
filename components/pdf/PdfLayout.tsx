@@ -1,18 +1,23 @@
 "use client";
 
-import Hello from "@/components/input/Hello";
 import React, { useState } from "react";
 import PdfAppInfo from "@/components/pdf/PdfAppInfo";
 import UploadDialog from "./UploadDialog";
 import YourFiles from "./YourFiles";
 import { useRouter } from "next/navigation";
+import Login from "@/components/input/login";
 
 interface InputCaptureProps {
   userEmail?: string;
   documents?: any;
+  credits?: any;
 }
 
-export default function PdfLayout({ userEmail, documents }: InputCaptureProps) {
+export default function PdfLayout({
+  userEmail,
+  documents,
+  credits,
+}: InputCaptureProps) {
   const [fileUrl, setFileUrl] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string | null>(null);
   const [documentId, setDocumentId] = useState<string | null>(null);
@@ -107,27 +112,31 @@ export default function PdfLayout({ userEmail, documents }: InputCaptureProps) {
 
   return (
     <section className="relative min-h-screen">
-      <Hello userEmail={userEmail} />
       <div className="flex flex-col md:flex-row items-center no-scrollbar">
         <div className="w-full md:w-1/2 no-scrollbar">
           <PdfAppInfo />
         </div>
-
         <div className="w-full px-8 md:w-1/2">
-          <div className="mt-4 flex justify-center">
-            <UploadDialog
-              fileUrl={fileUrl}
-              fileName={fileName}
-              setFileUrl={setFileUrl}
-              setFileName={setFileName}
-              handleUpload={handleUpload}
-              handleUrlSubmit={handleUrlSubmit}
-              status={status}
-              response={response}
-            />
-          </div>
-          {documents && documents.length > 0 && (
-            <YourFiles documents={documents} />
+          {userEmail ? (
+            <>
+              <div className="mt-4 flex justify-center">
+                <UploadDialog
+                  fileUrl={fileUrl}
+                  fileName={fileName}
+                  setFileUrl={setFileUrl}
+                  setFileName={setFileName}
+                  handleUpload={handleUpload}
+                  handleUrlSubmit={handleUrlSubmit}
+                  status={status}
+                  response={response}
+                />
+              </div>
+              {documents && documents.length > 0 && (
+                <YourFiles documents={documents} />
+              )}
+            </>
+          ) : (
+            <Login />
           )}
         </div>
       </div>

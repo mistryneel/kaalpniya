@@ -5,6 +5,12 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+export const isMobile = () => {
+  if (typeof window === "undefined") return false;
+  const width = window.innerWidth;
+  return width <= 1024;
+};
+
 export function getCurrentFormattedDate(): string {
   const currentDate = new Date();
   const options: Intl.DateTimeFormatOptions = {

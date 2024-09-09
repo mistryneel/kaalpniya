@@ -6,24 +6,26 @@ export const toolConfig: ToolConfig = {
   company: {
     name: "VoiceToNotes",
     theme: "whisper",
-    homeUrl: "/audio",
-    appUrl: "/audio/app",
-    description: "Generate transcriptions from your voice recordings",
+    homeUrl: "/apps/audio",
+    appUrl: "/apps/audio/app",
+    description:
+      "Build an AI wrapper that generates transcripts from your voice recordings using Whisper on Replicate and summarize them using Llama 3 from Groq.",
     logo: "https://cdn0.iconfinder.com/data/icons/phosphor-regular-vol-3/256/microphone-1024.png",
     navbarLinks: [
-      { label: "App", href: `/audio/app` },
-      { label: "Home", href: "https://anotherwrapper.com" },
-      { label: "Other apps", href: "https://apps.anotherwrapper.com" },
+      { label: "App", href: `/apps/audio/app` },
+      { label: "Home", href: "/" },
+      { label: "Other apps", href: "/apps" },
       { label: "Blog", href: "/blog" },
     ],
   },
 
   ////// SEO stuff
   metadata: {
-    title: "VoiceToNotes | AnotherWrapper",
-    description: "Generate transcriptions from your voice recordings",
+    title: "Voice to notes AI wrapper | AnotherWrapper",
+    description:
+      "Build an AI wrapper that generates transcripts from your voice recordings using Whisper on Replicate and summarize them using Llama 3 from Groq.",
     og_image: "https://anotherwrapper.com/og.png",
-    canonical: "https://anotherwrapper.com/audio",
+    canonical: "https://anotherwrapper.com/apps/audio",
   },
 
   ////// Paywall

@@ -6,14 +6,15 @@ export const toolConfig: ToolConfig = {
   company: {
     name: "DALLEStudio",
     theme: "logo",
-    homeUrl: "/openai/dalle",
-    appUrl: "/openai/dalle/app",
-    description: "Generate stunning images with AI",
+    homeUrl: "/apps/openai/dalle",
+    appUrl: "/apps/openai/dalle/app",
+    description:
+      "Build your own Dalle 3 AI wrapper logo generator in minutes with this demo app that uses OpenAI, Cloudflare R2 & Supabase.",
     logo: "https://cdn0.iconfinder.com/data/icons/lifestyle-entertainment-vol-2/512/museum_art_painting_artist-512.png",
     navbarLinks: [
-      { label: "App", href: `/openai/dalle/app` },
-      { label: "Home", href: "https://anotherwrapper.com" },
-      { label: "Other apps", href: "https://apps.anotherwrapper.com" },
+      { label: "App", href: `/apps/openai/dalle/app` },
+      { label: "Home", href: "/" },
+      { label: "Other apps", href: "/apps" },
       { label: "Blog", href: "/blog" },
     ],
   },
@@ -22,10 +23,11 @@ export const toolConfig: ToolConfig = {
 
   ////// SEO stuff
   metadata: {
-    title: "Generate logos using DALL-E | AnotherWrapper",
-    description: "Generate beautiful logos for your business",
+    title: "DALL-E logo generator AI wrapper | AnotherWrapper",
+    description:
+      "Build your own Dalle 3 AI wrapper logo generator in minutes with this demo app that uses OpenAI, Cloudflare R2 & Supabase.",
     og_image: "https://indielogs.com/og-image.png",
-    canonical: "https://anotherwrapper.com/openai/marketing",
+    canonical: "https://anotherwrapper.com/apps/openai/dalle",
   },
 
   ////// Payments

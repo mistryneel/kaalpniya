@@ -14,7 +14,7 @@ const inter = Inter({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
-import { toolConfig } from "../toolConfig";
+import { toolConfig } from "./toolConfig";
 
 export const metadata = {
   title: toolConfig.metadata.title,

@@ -6,25 +6,25 @@ export const toolConfig: ToolConfig = {
   company: {
     name: "BizPlanApp",
     theme: "anotherwrapper",
-    homeUrl: "/claude",
-    appUrl: "/claude",
+    homeUrl: "/apps/claude",
+    appUrl: "/apps/claude",
     description:
-      "Create a comprehensive business plan using Claude 3 & Anthropic's SONNET AI model.",
+      "Build your own Claude 3.5 Sonnet AI wrapper in minutes with this demo app that uses Anthropic, LangChain & Supabase.",
     logo: "https://cdn2.iconfinder.com/data/icons/privacy-policy/512/privacy-data-policy-security-05-512.png",
     navbarLinks: [
-      { label: "App", href: `/claude` },
-      { label: "Home", href: "https://anotherwrapper.com" },
-      { label: "Other apps", href: "https://apps.anotherwrapper.com" },
+      { label: "App", href: `/apps/claude` },
+      { label: "Home", href: "/" },
+      { label: "Other apps", href: "/apps" },
       { label: "Blog", href: "/blog" },
     ],
   },
   ////// SEO stuff
   metadata: {
-    title: "Business Plan Generator for Solopreneurs | AnotherWrapper",
+    title: "Claude 3.5 Sonnet AI Wrapper | AnotherWrapper",
     description:
-      "Create a comprehensive business plan using Claude 3 & Anthropic's SONNET AI model.",
+      "Build your own Claude 3.5 Sonnet AI wrapper in minutes with this demo app that uses Anthropic, LangChain & Supabase.",
     og_image: "https://anotherwrapper.com/og.png",
-    canonical: "https://anotherwrapper.com/claude",
+    canonical: "https://anotherwrapper.com/apps/claude",
   },
 
   ////// Paywall

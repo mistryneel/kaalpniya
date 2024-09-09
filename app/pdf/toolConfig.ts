@@ -13,19 +13,19 @@ export const toolConfig: ToolConfig = {
     logo: "https://cdn3.iconfinder.com/data/icons/aami-web-internet/64/aami4-68-512.png",
     navbarLinks: [
       { label: "App", href: `/pdf` },
-      { label: "Home", href: "https://anotherwrapper.com" },
-      { label: "Other apps", href: "https://apps.anotherwrapper.com" },
+      { label: "Home", href: "/" },
+      { label: "Other apps", href: "/apps" },
       { label: "Blog", href: "/blog" },
     ],
   },
 
   ////// SEO stuff
   metadata: {
-    title: "Chat with a PDF file | AnotherWrapper",
+    title: "Ask your PDF AI wrapper demo app | AnotherWrapper",
     description:
       "Build your own chat with a PDF app using OpenAI, LangChain and Supabase vector embeddings. Ask questions to your PDF!",
     og_image: "https://anotherwrapper.com/og.png",
-    canonical: "https://anotherwrapper.com/pdf",
+    canonical: "https://anotherwrapper.com/apps/pdf",
   },
 
   ////// Paywall

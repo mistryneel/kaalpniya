@@ -1,32 +1,24 @@
 import { ImageResponse } from "next/og";
-
-export const runtime = "edge";
+// App router includes @vercel/og.
+// No need to install it.
 
 export async function GET() {
   return new ImageResponse(
     (
       <div
         style={{
-          height: "100%",
+          fontSize: 40,
+          color: "black",
+          background: "white",
           width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          height: "100%",
+          padding: "50px 200px",
+          textAlign: "center",
           justifyContent: "center",
-          backgroundColor: "#fff",
-          fontSize: 32,
-          fontWeight: 600,
+          alignItems: "center",
         }}
       >
-        <svg
-          width="75"
-          viewBox="0 0 75 65"
-          fill="#000"
-          style={{ margin: "0 75px" }}
-        >
-          <path d="M37.59.25l36.95 64H.64l36.95-64z"></path>
-        </svg>
-        <div style={{ marginTop: 40 }}>Hello, World</div>
+        👋 Hello
       </div>
     ),
     {

@@ -1,4 +1,4 @@
-import InputCapture from "@/components/input/Layout";
+import InputCapture from "@/components/input/Input";
 import PaymentModal from "@/components/paywall/Payment";
 import { createClient } from "@/lib/utils/supabase/server";
 import { toolConfig } from "./toolConfig";
@@ -16,10 +16,13 @@ import Footer from "@/components/footers/Footer-1";
 export const metadata = {
   title: toolConfig.metadata.title,
   description: toolConfig.metadata.description,
-  og_image: toolConfig.metadata.og_image,
-  canonical: toolConfig.metadata.canonical,
+  openGraph: {
+    images: [toolConfig.metadata.og_image],
+  },
+  alternates: {
+    canonical: toolConfig.metadata.canonical,
+  },
 };
-
 export default async function Page() {
   // Verify that user is logged in
   const supabase = createClient();
@@ -28,32 +31,35 @@ export default async function Page() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
-    return redirect("/auth");
-  }
+  // if (!user) {
+  //   return redirect("/auth");
+  // }
 
   // If user is logged in, we check if the tool is paywalled.
   // If it is, we check if the user has a valid purchase & enough credits for one generation
   let credits;
-  if (toolConfig.paywall) {
-    const { data: profile } = await supabase
-      .from("profiles")
-      .select("*")
-      .eq("id", user.id)
-      .single();
 
-    credits = profile.credits;
+  if (user) {
+    if (toolConfig.paywall) {
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", user.id)
+        .single();
 
-    console.table(profile);
+      credits = profile.credits;
 
-    if (credits < toolConfig.credits) {
-      return <PaymentModal />;
+      console.table(profile);
+
+      if (credits < toolConfig.credits) {
+        return <PaymentModal />;
+      }
     }
   }
 
   const InfoCard = (
     <AppInfo
-      title="Return structured output using Claude 3"
+      title="Return structured output using Claude 3.5 Sonnet"
       background="bg-primary/10"
     >
       <div className="py-8 flex justify-center">
@@ -128,26 +134,13 @@ export default async function Page() {
 
   // If the tool is not paywalled or the user has a valid purchase, render the page
   return (
-    <>
-      <Navbar
-        companyConfig={toolConfig.company!}
-        navbarConfig={toolConfig.navbarApp!}
+    <div data-theme={toolConfig.company.theme} className="bg-white">
+      <InputCapture
+        toolConfig={toolConfig}
+        userEmail={user ? user.email : undefined}
+        credits={toolConfig.paywall ? credits : undefined}
+        emptyStateComponent={InfoCard}
       />
-      <div className="min-h-screen">
-        <Section>
-          <InputCapture
-            toolConfig={toolConfig}
-            userEmail={user ? user.email : undefined}
-            credits={toolConfig.paywall ? credits : undefined}
-            emptyStateComponent={InfoCard}
-          />
-        </Section>
-      </div>
-
-      <Footer
-        companyConfig={toolConfig.company!}
-        footerConfig={toolConfig.footerApp!}
-      />
-    </>
+    </div>
   );
 }

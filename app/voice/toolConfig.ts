@@ -6,26 +6,26 @@ export const toolConfig: ToolConfig = {
   company: {
     name: "TextToSpeech",
     theme: "anotherwrapper",
-    homeUrl: "/voice",
-    appUrl: "/voice",
+    homeUrl: "/apps/voice",
+    appUrl: "/apps/voice",
     description:
       "Build your own text-to-speech app using ElevenLabsIO! Convert text to speech in 26+ languages and choose over 1000 voices!",
     logo: "https://cdn2.iconfinder.com/data/icons/music-colored-outlined-pixel-perfect/64/music-35-512.png",
     navbarLinks: [
-      { label: "App", href: `/voice` },
-      { label: "Home", href: "https://anotherwrapper.com" },
-      { label: "Other apps", href: "https://apps.anotherwrapper.com" },
+      { label: "App", href: `/apps/voice` },
+      { label: "Home", href: "/" },
+      { label: "Other apps", href: "/apps" },
       { label: "Blog", href: "/blog" },
     ],
   },
 
   ////// SEO stuff
   metadata: {
-    title: "Turn text to speech | AnotherWrapper",
+    title: "Text to speech AI wrapper demo app | AnotherWrapper",
     description:
       "Build your own text-to-speech app using ElevenLabsIO! Convert text to speech in 26+ languages and choose over 1000 voices!",
     og_image: "https://anotherwrapper.com/og.png",
-    canonical: "https://anotherwrapper.com/voice",
+    canonical: "https://anotherwrapper.com/apps/voice",
   },
 
   ////// Paywall

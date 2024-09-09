@@ -13,8 +13,12 @@ import Testimonials from "@/components/testimonials/Testimonials-1";
 export const metadata = {
   title: toolConfig.metadata.title,
   description: toolConfig.metadata.description,
-  og_image: toolConfig.metadata.og_image,
-  canonical: toolConfig.metadata.canonical,
+  openGraph: {
+    images: [toolConfig.metadata.og_image],
+  },
+  alternates: {
+    canonical: toolConfig.metadata.canonical,
+  },
 };
 
 export default function Page() {

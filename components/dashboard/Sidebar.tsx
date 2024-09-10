@@ -158,7 +158,7 @@ export const Sidebar = () => {
             animate={{ x: 0 }}
             transition={{ duration: 0.2, ease: "linear" }}
             exit={{ x: -200 }}
-            className="px-6  z-[100] py-10 bg-neutral-100 max-w-[14rem] lg:w-fit  fixed lg:relative  h-screen left-0 flex flex-col justify-between"
+            className="px-6  z-40 py-10 bg-neutral-100 max-w-[14rem] lg:w-fit  fixed lg:relative  h-screen left-0 flex flex-col justify-between"
           >
             <div className="flex-1 overflow-auto no-scrollbar">
               <SidebarHeader />
@@ -174,7 +174,7 @@ export const Sidebar = () => {
         )}
       </AnimatePresence>
       <button
-        className="fixed lg:hidden bottom-4 right-4 h-8 w-8 border border-neutral-200 rounded-full backdrop-blur-sm flex items-center justify-center z-50"
+        className="fixed lg:hidden bottom-4 right-4 h-8 w-8 border border-neutral-200 rounded-full backdrop-blur-sm flex items-center justify-center z-40"
         onClick={() => setOpen(!open)}
       >
         <IconLayoutSidebarRightCollapse className="h-4 w-4 text-primary" />
@@ -193,7 +193,7 @@ export const Navigation = ({
   const isActive = (href: string) => pathname === href;
 
   return (
-    <div className="flex flex-col space-y-1 my-10 relative z-[100]">
+    <div className="flex flex-col space-y-1 my-10 relative z-40">
       <Heading as="p" className="text-sm md:text-sm lg:text-sm px-2">
         Demo apps
       </Heading>

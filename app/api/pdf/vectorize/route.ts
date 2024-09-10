@@ -3,6 +3,19 @@ import { createClient } from "@/lib/utils/supabase/server";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 import { PDFLoader } from "langchain/document_loaders/fs/pdf";
 import { OpenAIEmbeddings } from "@langchain/openai";
+import { Document } from "langchain/document";
+
+type DocumentMetadata = {
+  document_id: any;
+  page: number;
+};
+
+function sanitizeText(text: string): string {
+  return text
+    .replace(/\u0000/g, "") // Remove null characters
+    .replace(/[^\x20-\x7E]/g, "") // Remove non-printable ASCII characters
+    .trim(); // Trim whitespace from start and end
+}
 
 export async function POST(request: NextRequest) {
   const supabase = createClient();
@@ -29,8 +42,8 @@ export async function POST(request: NextRequest) {
 
   async function fetchDocumentsFromUrl(url: string) {
     const response = await fetch(url);
-    const buffer = await response.blob();
-    const loader = new PDFLoader(buffer);
+    const buffer = await response.arrayBuffer();
+    const loader = new PDFLoader(new Blob([buffer]));
     const rawDocs = await loader.load();
 
     const textSplitter = new RecursiveCharacterTextSplitter({
@@ -46,13 +59,13 @@ export async function POST(request: NextRequest) {
       const pageIndex = pages.findIndex((page) =>
         page.includes(splitDoc.pageContent)
       );
-      return {
-        pageContent: splitDoc.pageContent,
+      return new Document({
+        pageContent: sanitizeText(splitDoc.pageContent),
         metadata: {
           document_id: documentId,
           page: pageIndex + 1,
         },
-      };
+      });
     });
 
     return documentsWithPages;
@@ -62,20 +75,38 @@ export async function POST(request: NextRequest) {
     const documents = await fetchDocumentsFromUrl(fileUrl);
 
     const embeddings = new OpenAIEmbeddings();
-    const embeddedDocuments = await embeddings.embedDocuments(
-      documents.map((doc) => doc.pageContent)
+    const embeddedDocuments = await Promise.all(
+      documents.map(async (doc) => {
+        try {
+          const [embedding] = await embeddings.embedDocuments([
+            doc.pageContent,
+          ]);
+          return { doc, embedding };
+        } catch (error) {
+          console.error("Error embedding document:", error);
+          return null;
+        }
+      })
     );
 
-    const embeddingsData = embeddedDocuments.map((embedding, index) => ({
+    const validEmbeddings = embeddedDocuments.filter(
+      (
+        item
+      ): item is { doc: Document<DocumentMetadata>; embedding: number[] } =>
+        item !== null
+    );
+
+    const embeddingsData = validEmbeddings.map(({ doc, embedding }) => ({
       document_id: documentId,
-      content: documents[index].pageContent,
-      embedding,
-      metadata: documents[index].metadata,
+      content: doc.pageContent,
+      embedding: embedding,
+      metadata: doc.metadata,
     }));
 
     const { error } = await supabase.from("embeddings").insert(embeddingsData);
 
     if (error) {
+      console.error("Supabase insertion error:", error);
       throw error;
     }
 
@@ -84,7 +115,7 @@ export async function POST(request: NextRequest) {
       id: documentId,
     });
   } catch (error) {
-    console.log("error", error);
+    console.error("Error in POST function:", error);
     return NextResponse.json({ error: "Failed to ingest your data" });
   }
 }

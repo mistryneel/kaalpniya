@@ -65,7 +65,7 @@ export default async function Page() {
     }
   }
   const InfoCard = (
-    <AppInfo title="Generate a logo using DALL-E" background="bg-primary/50">
+    <AppInfo title="Generate a logo using DALL-E" background="bg-primary/25">
       <div className="py-8 flex justify-center">
         <AnimatedBeamOpenAI />
       </div>

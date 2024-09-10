@@ -52,7 +52,7 @@ export default async function Page() {
   const InfoCard = (
     <AppInfo
       title="Return structured output using LLaMA"
-      background="bg-accent/25"
+      background="bg-accent/10"
     >
       <div className="py-8 flex justify-center">
         <AnimatedBeamOpenAI />

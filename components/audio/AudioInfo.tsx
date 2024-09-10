@@ -6,14 +6,14 @@ import {
   PaddingIcon,
   RocketIcon,
 } from "@radix-ui/react-icons";
-import { BookIcon, DatabaseIcon, RouteIcon, TrashIcon } from "lucide-react";
+import { DatabaseIcon, RouteIcon, TrashIcon } from "lucide-react";
 import { IconVector } from "@tabler/icons-react";
 import AppInfo from "@/components/input/AppInfo";
 import Info from "@/components/alerts/Info";
 
 export default function AudioInfo() {
   return (
-    <AppInfo title="Turn your thoughts into notes" background="bg-primary/10">
+    <AppInfo title="Turn your thoughts into notes" background="bg-primary/5">
       <div className="py-8 flex justify-center">
         <AnimatedBeamOpenAI />
       </div>

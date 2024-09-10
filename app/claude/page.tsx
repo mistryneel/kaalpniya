@@ -9,9 +9,7 @@ import { IconOpenAI } from "@/components/icons";
 import { GearIcon, Link1Icon, PaddingIcon } from "@radix-ui/react-icons";
 import { Database } from "lucide-react";
 import Info from "@/components/alerts/Info";
-import Navbar from "@/components/navbars/Navbar-1";
-import Section from "@/components/Section";
-import Footer from "@/components/footers/Footer-1";
+import { Heading } from "@/components/dashboard/Heading";
 
 export const metadata = {
   title: toolConfig.metadata.title,
@@ -59,8 +57,8 @@ export default async function Page() {
 
   const InfoCard = (
     <AppInfo
-      title="Return structured output using Claude 3.5 Sonnet"
-      background="bg-primary/10"
+      title="Claude 3.5 Sonnet text generator demo application"
+      background="bg-primary/5"
     >
       <div className="py-8 flex justify-center">
         <AnimatedBeamOpenAI />

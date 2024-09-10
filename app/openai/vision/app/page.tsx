@@ -52,7 +52,7 @@ export default async function Page() {
   const InfoCard = (
     <AppInfo
       title="Use the vision capabilities of GPT-4o"
-      background="bg-primary/25"
+      background="bg-primary/10"
     >
       <div className="py-8 flex justify-center">
         <AnimatedBeamOpenAI />

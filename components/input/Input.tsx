@@ -57,7 +57,7 @@ export default function InputCapture({
   };
 
   return (
-    <section className="pb-20 w-full max-w-6xl mx-auto px-4">
+    <section className="pb-20 w-full mx-auto">
       <div className="flex flex-col md:flex-row items-stretch gap-8 relative">
         <div className="w-full md:w-1/2">
           {toolConfig.type === "gpt" ||

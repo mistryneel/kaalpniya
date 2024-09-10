@@ -57,8 +57,8 @@ export default async function Page() {
 
   // If the tool is not paywalled or the user has a valid purchase, render the page
   return (
-    <Section>
-      <div className="flex flex-col md:flex-row items-center">
+    <>
+      <div className="w-full flex flex-col md:flex-row items-center">
         <div className="w-full md:w-1/2">
           <AudioInfo />
         </div>
@@ -80,6 +80,6 @@ export default async function Page() {
           </div>
         )}
       </div>
-    </Section>
+    </>
   );
 }

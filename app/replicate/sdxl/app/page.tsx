@@ -65,7 +65,7 @@ export default async function Page() {
   }
 
   const InfoCard = (
-    <AppInfo title="Generate images using SDXL" background="bg-accent/20">
+    <AppInfo title="Generate images using SDXL" background="bg-accent/10">
       <div className="py-8 flex justify-center">
         <AnimatedBeamOpenAI />
       </div>

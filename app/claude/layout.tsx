@@ -60,7 +60,7 @@ export default async function RootLayout({
         <div className="flex-1 bg-white min-h-screen lg:rounded-tl-xl border border-transparent lg:border-neutral-200 overflow-y-auto">
           <Container>
             <span className="text-4xl">👋🏼</span>
-            <Heading className="font-black">
+            <Heading as="p" className="font-black">
               {user ? `Hi ${user.email}!` : "Hi there!"}
             </Heading>
             <Paragraph className="max-w-xl mt-4">
@@ -69,14 +69,14 @@ export default async function RootLayout({
                 <Highlight> You still have {credits} credits left.</Highlight>
               )}
             </Paragraph>
+            {children}
           </Container>
-          {children}
           <Footer />
-          <FooterAll
-            companyConfig={toolConfig.company!}
-            footerConfig={toolConfig.footerApp!}
-          />
         </div>
+        <FooterAll
+          companyConfig={toolConfig.company!}
+          footerConfig={toolConfig.footerApp!}
+        />
       </div>
     </body>
   );

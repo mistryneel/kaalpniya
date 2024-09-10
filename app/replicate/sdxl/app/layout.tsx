@@ -69,14 +69,14 @@ export default async function RootLayout({
                 <Highlight> You still have {credits} credits left.</Highlight>
               )}
             </Paragraph>
+            {children}
           </Container>
-          {children}
           <Footer />
-          <FooterAll
-            companyConfig={toolConfig.company!}
-            footerConfig={toolConfig.footerApp!}
-          />
         </div>
+        <FooterAll
+          companyConfig={toolConfig.company!}
+          footerConfig={toolConfig.footerApp!}
+        />
       </div>
     </body>
   );

@@ -30,9 +30,7 @@ export default async function Page() {
 
   return (
     <>
-      <Section>
-        <Layout userEmail={user ? user.email : undefined} />
-      </Section>
+      <Layout userEmail={user ? user.email : undefined} />
     </>
   );
 }

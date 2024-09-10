@@ -68,7 +68,7 @@ export function UserGenerations({
     generationType === "replicate/sdxl" ? "SDXL" : "DALL-E";
 
   return (
-    <div className="space-y-8 max-w-7xl mx-auto px-2 md:px-8 pb-20">
+    <div className="space-y-8 mx-auto pb-20">
       <Heading className="text-2xl font-bold">
         Your {generationTitle} Generations
       </Heading>

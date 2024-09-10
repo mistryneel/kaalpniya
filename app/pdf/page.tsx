@@ -40,13 +40,11 @@ export default async function Page() {
 
   return (
     <>
-      <Section>
-        <PdfLayout
-          userEmail={user ? user.email : undefined}
-          documents={documents}
-          credits={credits}
-        />
-      </Section>
+      <PdfLayout
+        userEmail={user ? user.email : undefined}
+        documents={documents}
+        credits={credits}
+      />
     </>
   );
 }

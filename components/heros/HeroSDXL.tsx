@@ -17,31 +17,30 @@ export default function Hero() {
           </svg>
         </div>
         <div className="px-4 py-16 sm:max-w-xl md:max-w-4xl lg:max-w-4xl md:px-24 lg:px-16 lg:py-20">
-          <h1 className="text-5xl font-bold leading-tight">
+          <h2 className="text-5xl font-bold leading-tight">
             Beautiful images with Stable Diffusion XL
-          </h1>
-          <h2 className="mt-4 mb-8">
-            We use the latest in AI technology to generate stunning images in a
-            matter of seconds.
           </h2>
+          <h1 className="mt-4 mb-8">
+            Build your own SDXL image generator in minutes with this demo app
+            that uses Replicate, Cloudflare R2 & Supabase.
+          </h1>
           <div className="max-w-md flex rounded-lg overflow-hidden">
             <div className="flex-grow flex-shrink flex items-center">
               <div className="flex md:flex-row flex-col items-center space-x-4">
                 <a
                   className="btn btn-accent hover:bg-accent/80 w-64 text-accent-content"
-                  href="/replicate/sdxl/app"
+                  href="/apps/sdxl/app"
                 >
                   <Images className="w-6 h-6" />
                   Generate images with SDXL
                 </a>
-                <a className="btn btn-ghost text-content" href="/home">
+                <a className="btn btn-ghost text-content" href="/apps">
                   Other demo apps
                   <ArrowRight className="w-4 h-4" />
                 </a>
               </div>
             </div>
           </div>
-
           <div className="mt-5 flex  ">
             <SocialProof text={"Sam Altman who?"} color={"text-base-100"} />
           </div>

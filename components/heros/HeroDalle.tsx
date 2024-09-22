@@ -18,22 +18,23 @@ export default function Hero() {
         </div>
         <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
           <div className="relative max-w-2xl sm:mx-auto sm:max-w-xl md:max-w-2xl sm:text-center">
-            <h1 className="text-sm font-semibold sm:text-base">
+            <p className="text-sm font-semibold sm:text-base">
               The #74 AI Logo Generator
-            </h1>
+            </p>
 
             <h2 className="lg:block font-extrabold text-3xl lg:text-5xl tracking-tight md:-mb-4 leading-tight">
               Generate beautiful logos using DALL-E
             </h2>
 
-            <p className="mt-6 mb-6 text-base text-lg font-bold leading-relaxed md:text-lg">
-              Use our DALL-E to generate logos based on keywords.
-            </p>
+            <h1 className="mt-6 mb-6 text-base text-lg font-bold leading-relaxed md:text-lg">
+              Build your own DALL-E 3 logo generator in minutes with this demo
+              app that uses OpenAI, Cloudflare R2 & Supabase.
+            </h1>
 
             <div className="flex justify-center flex-row gap-2 flex-wrap ">
               <a
                 className="btn btn-accent text-black w-64 "
-                href="/openai/dalle/app"
+                href="/apps/dalle/app"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

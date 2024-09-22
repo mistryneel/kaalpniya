@@ -32,7 +32,7 @@ export default function OutputHero({
             </p>
 
             <div className="flex justify-center flex-row gap-2 flex-wrap ">
-              <a className="btn btn-ghost text-content" href="/demos">
+              <a className="btn btn-ghost text-content" href="/apps">
                 Other demo apps
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

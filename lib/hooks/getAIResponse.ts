@@ -31,7 +31,7 @@ export const getResponse = <T>(toolPath: string, params: any) => {
   };
 
   const copyLink = () => {
-    const linkToCopy = `${window.location.origin}/${toolPath}/${params.id}`;
+    const linkToCopy = window.location.href; // Always copy the current URL
     navigator.clipboard
       .writeText(linkToCopy)
       .then(() => {

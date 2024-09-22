@@ -21,7 +21,7 @@ const OutputSidebar: React.FC<ResponseSidebarProps> = ({
           <div className="flex flex-col justify-center lg:justify-center">
             <a
               className="mb-2 btn btn-accent text-accent-content"
-              href={`/${toolConfig.toolPath}`}
+              href={`${toolConfig.company.appUrl}`}
             >
               Generate another one
               <ArrowRightCircle className="w-6 h-6" />

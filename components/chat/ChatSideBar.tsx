@@ -4,6 +4,9 @@ import { useState, useEffect, useRef } from "react";
 import ChatHistory from "@/components/chat/ChatHistory";
 import { MenuIcon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import Logo from "@/components/Logo";
+import { Button } from "@/components/ui/button";
+import Login from "@/components/input/login";
 
 const SidebarWrapper = ({ user }: { user: any }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -30,6 +33,25 @@ const SidebarWrapper = ({ user }: { user: any }) => {
     };
   }, [sidebarOpen]);
 
+  const sidebarContent = (
+    <div className="w-64 text-base-content flex flex-col justify-between bg-white shadow-lg h-full">
+      <div>
+        {user ? (
+          <ChatHistory user={user} />
+        ) : (
+          <>
+            <div className="mt-6 md:mt-0 p-4">
+              <Logo />
+            </div>
+            <div className="p-4 flex flex-col items-center">
+              <Login />
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+
   return (
     <>
       <div className="p-4 md:hidden fixed top-0 left-0 z-50">
@@ -49,20 +71,11 @@ const SidebarWrapper = ({ user }: { user: any }) => {
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-40 md:hidden"
           >
-            <div
-              ref={sidebarRef}
-              className="w-64 text-base-content flex flex-col justify-between bg-white shadow-lg h-full"
-            >
-              <ChatHistory user={user} />
-            </div>
+            <div ref={sidebarRef}>{sidebarContent}</div>
           </motion.div>
         )}
       </AnimatePresence>
-      <div className="hidden md:flex md:relative">
-        <div className="w-64 text-base-content flex flex-col justify-between bg-white shadow-lg h-full">
-          <ChatHistory user={user} />
-        </div>
-      </div>
+      <div className="hidden md:flex md:relative">{sidebarContent}</div>
     </>
   );
 };

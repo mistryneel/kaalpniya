@@ -53,8 +53,8 @@ export default function PdfAppInfo() {
             <PaddingIcon className="w-4 h-4" />
           </span>
           <span className="ml-2">
-            The main frontend logic is found in the <code>app/chat/pdf</code>{" "}
-            folder.
+            The main frontend logic is found in the{" "}
+            <code>app/(apps)/chat/pdf</code> folder.
           </span>
         </li>
         <li className="text-l flex">
@@ -63,8 +63,8 @@ export default function PdfAppInfo() {
           </span>
           <span className="ml-2">
             The main configuration file can be found in{" "}
-            <code>app/pdf/toolConfig.ts</code> file. You can specify the GPT
-            model used & number messages included in the history.
+            <code>app/(apps)/pdf/toolConfig.ts</code> file. You can specify the
+            GPT model used & number messages included in the history.
           </span>
         </li>
         <li className="text-l flex">
@@ -73,7 +73,7 @@ export default function PdfAppInfo() {
           </span>
           <span className="ml-2">
             The API endpoint and logic can be found in{" "}
-            <code>app/api/pdf/chat/route.ts</code>.
+            <code>app/api/(apps)/pdf/chat/route.ts</code>.
           </span>
         </li>
         <li className="text-l flex">
@@ -82,7 +82,7 @@ export default function PdfAppInfo() {
           </span>
           <span className="ml-2">
             The API to generate embeddings be found in{" "}
-            <code>app/api/pdf/vectorize/route.ts</code>.
+            <code>app/api/(apps)/pdf/vectorize/route.ts</code>.
           </span>
         </li>
         <li className="text-l flex">
@@ -91,7 +91,7 @@ export default function PdfAppInfo() {
           </span>
           <span className="ml-2">
             The API to upload PDF can be found in{" "}
-            <code>app/api/pdf/upload/route.ts</code>.
+            <code>app/api/(apps)/pdf/upload/route.ts</code>.
           </span>
         </li>
         <li className="text-l flex">
@@ -100,7 +100,7 @@ export default function PdfAppInfo() {
           </span>
           <span className="ml-2">
             The API to delete PDF & embeddings can be found in{" "}
-            <code>app/api/pdf/delete/route.ts</code>.
+            <code>app/api/(apps)/pdf/delete/route.ts</code>.
           </span>
         </li>
         <li className="text-l flex">

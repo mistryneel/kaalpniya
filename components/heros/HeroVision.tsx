@@ -5,21 +5,21 @@ export default function Hero() {
     <div className="bg-primary text-white">
       {" "}
       <section className="pb-24 p-4 text-center items-center flex flex-col">
-        <h1 className="max-w-5xl mt-16 md:mt-18 font-extrabold text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-tight mb-2">
+        <h2 className="max-w-5xl mt-16 md:mt-18 font-extrabold text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-tight mb-2">
           Generate accurate image descriptions
           <span className="bg-base-100 text-base-content px-2 md:px-4 ml-1 md:ml-1.5 leading-relaxed whitespace-nowrap">
             with AI
           </span>{" "}
-        </h1>{" "}
-        <h2 className="mt-4 md:mt-6 max-w-[600px]">
-          Our AI model carefully analyzes your image and generates a detailed
-          description in seconds. You'll love it!
-        </h2>
+        </h2>{" "}
+        <h1 className="mt-4 md:mt-6 max-w-[600px]">
+          Build your own GPT-4o vision app in minutes with this demo app that
+          uses OpenAI, Cloudflare R2 & Supabase.
+        </h1>
         <div className="mt-8">
           <div className="flex md:flex-row flex-col items-center space-x-4">
             <a
               className="btn btn-base-100 hover:bg-base-200 w-64 text-base-content"
-              href="/openai/vision/app"
+              href="/apps/vision/app"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +37,7 @@ export default function Hero() {
               </svg>
               Generate descriptions
             </a>
-            <a className="btn btn-ghost text-content" href="/home">
+            <a className="btn btn-ghost text-content" href="/apps">
               See other demo apps
               <svg
                 xmlns="http://www.w3.org/2000/svg"

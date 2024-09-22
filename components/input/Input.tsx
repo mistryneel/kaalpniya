@@ -4,8 +4,7 @@ import { useState, ReactElement } from "react";
 import Upload from "@/components//input/ImageUpload";
 import { useFormData } from "@/lib/hooks/useFormData";
 import { generateAIResponse } from "@/lib/hooks/generateAIResponse";
-import { RenderFields } from "@/components//input/FormFields";
-import Hello from "@/components/input/Hello";
+import { RenderFields } from "@/components/input/FormFields";
 import { type ToolConfig } from "@/lib/types/toolconfig";
 import AppInfo from "@/components/input/AppInfo";
 import { LoaderCircle } from "lucide-react";
@@ -59,34 +58,13 @@ export default function InputCapture({
   return (
     <section className="pb-20 w-full mx-auto">
       <div className="flex flex-col md:flex-row items-stretch gap-8 relative">
-        <div className="w-full md:w-1/2">
-          {toolConfig.type === "gpt" ||
-          toolConfig.type === "groq" ||
-          toolConfig.type === "claude" ||
-          toolConfig.type === "vision" ? (
-            emptyStateComponent
-          ) : (toolConfig.type === "sdxl" || toolConfig.type === "dalle") &&
-            !generatedImage ? (
-            emptyStateComponent
-          ) : (toolConfig.type === "sdxl" || toolConfig.type === "dalle") &&
-            generatedImage ? (
-            <AppInfo title="Your image has been generated.">
-              <img
-                src={generatedImage}
-                className="mt-10 w-full group-hover:scale-105 duration-300 transition rounded-xl"
-              />
-              <p className="text-sm mt-4">
-                Fill in the form on the right to generate a different image.
-              </p>
-            </AppInfo>
-          ) : null}
-        </div>
-
-        <div className="w-full md:w-1/2 md:absolute md:top-1/2 md:right-0 md:transform md:-translate-y-1/2 md:pl-8">
+        <div className="w-full md:w-1/2 flex">
           {!userEmail ? (
-            <Login />
+            <div className="w-full flex items-center justify-center">
+              <Login />
+            </div>
           ) : (
-            <div className="flex items-center justify-center">
+            <div className="flex items-center w-full justify-center">
               <form onSubmit={handleSubmit} className="w-full">
                 <div className="flex flex-col items-center">
                   <div className="w-full mb-5">
@@ -125,6 +103,28 @@ export default function InputCapture({
             </div>
           )}
         </div>
+        <div className="w-full md:w-1/2">
+          {toolConfig.type === "gpt" ||
+          toolConfig.type === "groq" ||
+          toolConfig.type === "claude" ||
+          toolConfig.type === "vision" ? (
+            emptyStateComponent
+          ) : (toolConfig.type === "sdxl" || toolConfig.type === "dalle") &&
+            !generatedImage ? (
+            emptyStateComponent
+          ) : (toolConfig.type === "sdxl" || toolConfig.type === "dalle") &&
+            generatedImage ? (
+            <AppInfo title="Your image has been generated.">
+              <img
+                src={generatedImage}
+                className="mt-10 w-full group-hover:scale-105 duration-300 transition rounded-xl"
+              />
+              <p className="text-sm mt-4">
+                Fill in the form on the right to generate a different image.
+              </p>
+            </AppInfo>
+          ) : null}
+        </div>{" "}
       </div>
     </section>
   );

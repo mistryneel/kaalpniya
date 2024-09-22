@@ -19,20 +19,20 @@ export const generateAIResponse = (
     event.preventDefault();
     setLoading(true);
 
-    let endpoint = "openai/gpt";
+    let endpoint = "gpt";
     let body: { [key: string]: any } = formData;
 
     // Set the endpoint and body based on the tool type
     switch (toolConfig.type) {
       case "vision":
-        endpoint = "openai/vision";
+        endpoint = "vision";
         body = { ...formData, imageUrl };
         break;
       case "dalle":
-        endpoint = "openai/dalle";
+        endpoint = "dalle";
         break;
       case "sdxl":
-        endpoint = "replicate/sdxl";
+        endpoint = "sdxl";
         break;
       case "groq":
         endpoint = "groq";
@@ -78,10 +78,10 @@ export const generateAIResponse = (
         }
       } else {
         // Otherwise, redirect to the output page
-        const redirectPath = toolConfig.toolPath
-          ? `/${toolConfig.toolPath}/${id}`
-          : `/${id}`;
-        router.push(redirectPath);
+        const baseUrl = toolConfig.company.homeUrl.startsWith("/")
+          ? toolConfig.company.homeUrl.slice(1)
+          : toolConfig.company.homeUrl;
+        router.push(`/${baseUrl}/${id}`);
       }
     } catch (error) {
       console.error("Failed to generate responses:", error);

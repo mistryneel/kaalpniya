@@ -54,8 +54,8 @@ export default function AudioInfo() {
             <PaddingIcon className="w-4 h-4" />
           </span>
           <span className="ml-2">
-            The main frontend logic is found in the <code>app/audio</code>{" "}
-            folder.
+            The main frontend logic is found in the{" "}
+            <code>app/(apps)/audio</code> folder.
           </span>
         </li>
         <li className="text-l flex">
@@ -64,7 +64,7 @@ export default function AudioInfo() {
           </span>
           <span className="ml-2">
             The main configuration file can be found in{" "}
-            <code>app/audio/toolConfig.ts</code> file.
+            <code>app/(apps)/audio/toolConfig.ts</code> file.
           </span>
         </li>
         <li className="text-l flex">
@@ -73,7 +73,7 @@ export default function AudioInfo() {
           </span>
           <span className="ml-2">
             The API transcription endpoint and logic can be found in{" "}
-            <code>app/api/audio/transcribe/route.ts</code>.
+            <code>app/api/(apps)/audio/transcribe/route.ts</code>.
           </span>
         </li>
         <li className="text-l flex">
@@ -82,7 +82,7 @@ export default function AudioInfo() {
           </span>
           <span className="ml-2">
             The API to summarize the transcript be found in{" "}
-            <code>app/api/audio/summarize/route.ts</code>.
+            <code>app/api/(apps)/audio/summarize/route.ts</code>.
           </span>
         </li>
         <li className="text-l flex">
@@ -91,7 +91,7 @@ export default function AudioInfo() {
           </span>
           <span className="ml-2">
             The API to upload audio can be found in{" "}
-            <code>app/api/audio/upload/route.ts</code>.
+            <code>app/api/(apps)/audio/upload/route.ts</code>.
           </span>
         </li>
         <li className="text-l flex">
@@ -100,7 +100,7 @@ export default function AudioInfo() {
           </span>
           <span className="ml-2">
             The API to delete audio & Supabase entries can be found in{" "}
-            <code>app/api/audio/delete/route.ts</code>.
+            <code>app/api/(apps)/audio/delete/route.ts</code>.
           </span>
         </li>
         <li className="text-l flex">

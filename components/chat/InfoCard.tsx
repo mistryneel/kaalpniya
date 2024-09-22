@@ -41,7 +41,8 @@ const InfoCard = () => (
           <PaddingIcon className="w-4 h-4" />
         </span>
         <span className="ml-2">
-          The main frontend logic is found in the <code>app/chat</code> folder.
+          The main frontend logic is found in the <code>app/(apps)/chat</code>{" "}
+          folder.
         </span>
       </li>
       <li className="text-l flex">
@@ -50,8 +51,8 @@ const InfoCard = () => (
         </span>
         <span className="ml-2">
           The main configuration file can be found in{" "}
-          <code>app/chat/toolConfig.ts</code>. You can specify the GPT model
-          used & number messages included in the history.
+          <code>app/(apps)/chat/toolConfig.ts</code>. You can specify the GPT
+          model used & number messages included in the history.
         </span>
       </li>
       <li className="text-l flex">
@@ -60,7 +61,7 @@ const InfoCard = () => (
         </span>
         <span className="ml-2">
           The API endpoint and logic can be found in{" "}
-          <code>app/api/chat/route.ts</code>.
+          <code>app/api/(apps)/chat/route.ts</code>.
         </span>
       </li>
       <li className="text-l flex">

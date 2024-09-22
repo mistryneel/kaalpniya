@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { PlusCircleIcon } from "lucide-react";
 import { createClient } from "@/lib/utils/supabase/client";
 import { useRouter } from "next/navigation";
-import { toolConfig } from "@/app/chat/toolConfig";
+import { toolConfig } from "@/app/(apps)/chat/toolConfig";
 
 interface UserActionsProps {
   user: any;
@@ -61,7 +61,7 @@ const UserActions: FC<UserActionsProps> = ({ user, onNewChat }) => {
             <PlusCircleIcon size={16} className="mr-2" />
             {creatingChat ? "Creating..." : "Start new chat"}
           </Button>
-          <a href="/home" className="text-primary-content">
+          <a href="/apps" className="text-primary-content">
             <Button className="w-full text-primary-content mb-2">
               Show other apps
             </Button>
@@ -69,7 +69,7 @@ const UserActions: FC<UserActionsProps> = ({ user, onNewChat }) => {
         </>
       ) : (
         <>
-          <a href="/home" className="text-primary-content">
+          <a href="/apps" className="text-primary-content">
             <Button className="w-full text-primary-content mb-2">
               Show other apps
             </Button>

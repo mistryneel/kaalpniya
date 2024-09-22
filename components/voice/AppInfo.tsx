@@ -52,9 +52,9 @@ export default function VoiceAppInfo() {
             <PaddingIcon className="w-4 h-4" />
           </span>
           <span className="ml-2">
-            The main frontend logic is found in the <code>app/voice</code>{" "}
-            folder. Components used are found in the{" "}
-            <code>components/voice</code> folder.
+            The main frontend logic is found in the{" "}
+            <code>app/(apps)/voice</code> folder. Components used are found in
+            the <code>components/voice</code> folder.
           </span>
         </li>
         <li className="text-l flex">
@@ -72,7 +72,7 @@ export default function VoiceAppInfo() {
           </span>
           <span className="ml-2">
             The API endpoints for text-to-speech can be found in{" "}
-            <code>app/api/voice/*</code>. There are 4 endpoints: (1) get
+            <code>app/api/(apps)/voice/*</code>. There are 4 endpoints: (1) get
             available voices, (2) get available models, (3) generate speech and
             (4) upload the audio.
           </span>

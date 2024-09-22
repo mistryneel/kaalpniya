@@ -18,22 +18,22 @@ export default function Hero() {
         </div>
         <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
           <div className="relative max-w-2xl sm:mx-auto sm:max-w-xl md:max-w-2xl sm:text-center">
-            <h1 className="lg:block font-extrabold text-3xl lg:text-5xl tracking-tight md:-mb-4 leading-tight">
+            <p className="lg:block font-extrabold text-3xl lg:text-5xl tracking-tight md:-mb-4 leading-tight">
               Generate a marketing strategy
               <span className="bg-base-100 text-base-content px-2 md:px-4 ml-1 md:ml-1.5 leading-relaxed whitespace-nowrap transform rotate-3">
                 that works
               </span>
-            </h1>
-
-            <p className="mt-6 mb-6 text-base text-lg font-bold leading-relaxed md:text-lg">
-              Fill out the form below to generate your marketing strategy in 20
-              seconds.
             </p>
+
+            <h1 className="mt-6 mb-6 text-base text-lg font-bold leading-relaxed md:text-lg">
+              Build your own marketing strategy generator using GPT-4o mini in
+              minutes with this demo app that uses OpenAI, LangChain & Supabase.
+            </h1>
 
             <div className="flex justify-center flex-row gap-2 flex-wrap ">
               <a
                 className="btn btn-accent text-black w-64 "
-                href="/openai/gpt/app"
+                href="/apps/gpt/app"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -51,7 +51,7 @@ export default function Hero() {
                 </svg>
                 Generate marketing plan
               </a>
-              <a className="btn btn-ghost text-content" href="/home">
+              <a className="btn btn-ghost text-content" href="/apps">
                 Other demo apps
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

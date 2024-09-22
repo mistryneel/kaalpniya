@@ -1,6 +1,11 @@
-import React, { useState } from "react";
+"use client";
 
-const Upload: React.FC<any> = ({
+import React, { useState } from "react";
+import { FileUpload } from "@/components/ui/image-upload";
+import { Button } from "@/components/ui/button";
+import { X, Loader2 } from "lucide-react";
+
+const ImageUpload: React.FC<any> = ({
   currentImg = null,
   uploadConfig,
   setImageUrl,
@@ -8,10 +13,16 @@ const Upload: React.FC<any> = ({
   const [uploading, setUploading] = useState<boolean>(false);
   const [src, setSrc] = useState<string | null>(currentImg);
 
-  const uploadImage = async (evt: React.ChangeEvent<HTMLInputElement>) => {
-    const file = evt.target.files ? evt.target.files[0] : null;
-    if (!file) {
+  const handleFileUpload = async (files: File[]) => {
+    if (files.length === 0) {
       alert("You must select an image to upload.");
+      return;
+    }
+
+    const file = files[0];
+
+    if (!file.type.startsWith("image/")) {
+      alert("Please select a valid image file.");
       return;
     }
 
@@ -34,7 +45,7 @@ const Upload: React.FC<any> = ({
       const data = await response.json();
       console.log("Upload response:", data);
       setSrc(data.url);
-      setImageUrl(data.url); // Set the image URL in the parent component
+      setImageUrl(data.url);
     } catch (error) {
       console.error("Upload error:", error);
       alert((error as Error).message);
@@ -45,57 +56,36 @@ const Upload: React.FC<any> = ({
 
   const removeImage = () => {
     setSrc(null);
-    setImageUrl(null); // Reset the image URL in the parent component
+    setImageUrl(null);
   };
 
   return (
-    <div className="mt-10 flex flex-col justify-center items-center">
+    <div className="mb-4 w-full max-w-4xl mx-auto min-h-96 border border-dashed bg-white dark:bg-black border-neutral-200 dark:border-neutral-800 rounded-lg relative overflow-hidden">
       {src ? (
-        <div className="mb-4">
-          <div className="flex flex-col justify-center w-full rounded-full relative">
-            <img
-              src={src}
-              alt="Uploaded"
-              className="mt-2 w-full rounded-xl mx-auto"
-            />
-            <button
-              onClick={removeImage}
-              className="mt-2 btn bg-accent text-accent-content"
-            >
-              ❌ Upload different image
-            </button>
-          </div>
+        <div className="relative">
+          <img
+            src={src}
+            alt="Uploaded"
+            className="w-full h-full object-cover"
+          />
+          <button
+            onClick={removeImage}
+            className="absolute top-2 right-2 p-1 bg-black bg-opacity-50 rounded-full text-white hover:bg-opacity-70 transition-opacity"
+            aria-label="Remove image"
+          >
+            <X className="h-4 w-4" />
+          </button>
         </div>
-      ) : uploading ? (
-        <span className="loading loading-dots loading-lg"></span>
       ) : (
-        <div className="mb-4">
-          <div className="w-[350px] rounded-full">
-            <label
-              htmlFor="single"
-              className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100"
-            >
-              <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                <p className="mb-2 text-sm text-gray-500">
-                  <span className="font-semibold">Click to upload</span>
-                </p>
-                <p className="text-xs text-gray-500">
-                  SVG, PNG, JPG or GIF (MAX. 800x600px)
-                </p>
-              </div>
-              <input
-                type="file"
-                className="hidden"
-                id="single"
-                accept="image/*"
-                onChange={uploadImage}
-              />
-            </label>
-          </div>
+        <FileUpload onChange={handleFileUpload} />
+      )}
+      {uploading && (
+        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <Loader2 className="h-8 w-8 text-white animate-spin" />
         </div>
       )}
     </div>
   );
 };
 
-export default Upload;
+export default ImageUpload;

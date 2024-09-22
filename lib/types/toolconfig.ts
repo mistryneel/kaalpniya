@@ -56,7 +56,7 @@ export interface ToolConfig {
   // Inputs should match inputs captured in prompt.ts
 
   // These inputs will also be read by:
-  //// components/output/OutputLayout.tsx
+  //// components/output/DisplayOutput.tsx
   //// components/output/OutputSidebar.tsx
   //// components/output/OutputHero.tsx
 

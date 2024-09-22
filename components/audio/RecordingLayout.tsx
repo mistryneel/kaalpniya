@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { formatTimestamp } from "@/lib/utils";
 import {
   Dialog,
@@ -11,12 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AudioInfo from "@/components/audio/AudioInfo";
 import { ArrowRight } from "lucide-react";
 
@@ -24,7 +19,6 @@ export default function RecordingDesktop({ data }: { data: any }) {
   const { recording, summary, transcript } = data;
   const [note, setNote] = useState(summary);
   const [isGeneratingSummary, setIsGeneratingSummary] = useState(false);
-  const [activeTab, setActiveTab] = useState<string>("Summary");
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const router = useRouter();
 
@@ -85,80 +79,72 @@ export default function RecordingDesktop({ data }: { data: any }) {
           </p>
         </div>
       </div>
-      <div className="flex flex-col md:flex-row items-center">
+      <div className="flex flex-col md:flex-row">
         <div className="w-full md:w-1/2">
           <div className="flex flex-col">
             <div className="p-4">
-              <Accordion type="single" collapsible className="p-2">
-                <AccordionItem value="item-1">
-                  <AccordionTrigger>Your transcript</AccordionTrigger>
-                  <AccordionContent>
-                    <div className="text-sm">{transcript.transcript}</div>
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="item-2">
-                  <AccordionTrigger>Summary</AccordionTrigger>
-                  <AccordionContent>
-                    {summary?.summary ? (
-                      <div className="text-sm">{summary.summary}</div>
-                    ) : (
-                      <>
-                        <div className="text-sm">No summary available.</div>
-                        <Button
-                          className="text-sm bg-primary text-white mt-4"
-                          onClick={generateSummary}
-                          disabled={isGeneratingSummary}
-                        >
-                          {isGeneratingSummary
-                            ? "Generating summary..."
-                            : "Generate summary"}
-                          <ArrowRight className="w-4 h-4 ml-2" />
-                        </Button>
-                      </>
-                    )}{" "}
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="item-3">
-                  <AccordionTrigger>Action items</AccordionTrigger>
-                  <AccordionContent>
-                    {summary?.action_items ? (
-                      <div className="text-sm">
-                        <ul>
-                          {Array.isArray(summary.action_items)
-                            ? summary.action_items.map(
-                                (item: string, index: number) => (
-                                  <li key={index} className="list-disc">
-                                    {item}
-                                  </li>
-                                )
+              <Tabs defaultValue="transcript" className="w-full">
+                <TabsList className="flex space-x-1 bg-muted p-1 rounded-md">
+                  <TabsTrigger value="transcript">Your Transcript</TabsTrigger>
+                  <TabsTrigger value="summary">Summary</TabsTrigger>
+                  <TabsTrigger value="action-items">Action Items</TabsTrigger>
+                </TabsList>
+                <TabsContent value="transcript">
+                  <div className="text-sm">{transcript.transcript}</div>
+                </TabsContent>
+                <TabsContent value="summary">
+                  {summary?.summary ? (
+                    <div className="text-sm">{summary.summary}</div>
+                  ) : (
+                    <>
+                      <div className="text-sm">No summary available.</div>
+                      <Button
+                        className="text-sm bg-primary text-white mt-4"
+                        onClick={generateSummary}
+                        disabled={isGeneratingSummary}
+                      >
+                        {isGeneratingSummary
+                          ? "Generating summary..."
+                          : "Generate summary"}
+                        <ArrowRight className="w-4 h-4 ml-2" />
+                      </Button>
+                    </>
+                  )}
+                </TabsContent>
+                <TabsContent value="action-items">
+                  {summary?.action_items ? (
+                    <div className="text-sm">
+                      <ul className="list-disc pl-5">
+                        {Array.isArray(summary.action_items)
+                          ? summary.action_items.map(
+                              (item: string, index: number) => (
+                                <li key={index}>{item}</li>
                               )
-                            : JSON.parse(summary.action_items).map(
-                                (item: string, index: number) => (
-                                  <li key={index}>{item}</li>
-                                )
-                              )}
-                        </ul>
-                      </div>
-                    ) : (
-                      <>
-                        <div className="text-sm">
-                          No action items available.
-                        </div>
-                        <Button
-                          className="text-sm bg-primary text-white mt-4"
-                          onClick={generateSummary}
-                          disabled={isGeneratingSummary}
-                        >
-                          {isGeneratingSummary
-                            ? "Generating summary..."
-                            : "Generate summary"}
-                          <ArrowRight className="w-4 h-4 ml-2" />
-                        </Button>
-                      </>
-                    )}
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
+                            )
+                          : JSON.parse(summary.action_items).map(
+                              (item: string, index: number) => (
+                                <li key={index}>{item}</li>
+                              )
+                            )}
+                      </ul>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="text-sm">No action items available.</div>
+                      <Button
+                        className="text-sm bg-primary text-white mt-4"
+                        onClick={generateSummary}
+                        disabled={isGeneratingSummary}
+                      >
+                        {isGeneratingSummary
+                          ? "Generating summary..."
+                          : "Generate summary"}
+                        <ArrowRight className="w-4 h-4 ml-2" />
+                      </Button>
+                    </>
+                  )}
+                </TabsContent>
+              </Tabs>
             </div>
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
               <DialogContent className="sm:max-w-[425px]">

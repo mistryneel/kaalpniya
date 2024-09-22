@@ -18,23 +18,24 @@ export default function Hero() {
           </svg>
         </div>
         <div className="px-4 py-16 sm:max-w-xl md:max-w-4xl lg:max-w-4xl md:px-24 lg:px-16 lg:py-20">
-          <h1 className="text-5xl font-bold leading-tight">
+          <h2 className="text-5xl font-bold leading-tight">
             Build a personal brand that resonates
+          </h2>
+          <h1 className="mt-4 mb-8">
+            Build your own Llama 3 wrapper app in minutes with this demo app
+            that uses Groq, LangChain & Supabase.
           </h1>
-          <p className="mt-4 mb-8">
-            Get a personal branding strategy in 20 seconds using AI.{" "}
-          </p>
           <div className="max-w-md flex rounded-lg overflow-hidden">
             <div className="flex-grow flex-shrink flex items-center">
               <div className="flex md:flex-row flex-col items-center space-x-4">
                 <a
                   className="btn btn-accent hover:bg-accent/80 w-64 text-white"
-                  href="/groq/llama/app"
+                  href="/apps/llama/app"
                 >
                   <NotebookPen className="w-6 h-6" />
                   Get your strategy
                 </a>
-                <a className="btn btn-ghost text-content" href="/home">
+                <a className="btn btn-ghost text-content" href="/apps">
                   Other demo apps
                   <ArrowRight className="w-4 h-4" />
                 </a>

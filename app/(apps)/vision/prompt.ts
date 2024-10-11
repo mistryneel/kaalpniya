@@ -5,25 +5,26 @@
 export function generatePrompt(body: any) {
   const { descriptionType } = body;
 
-  return (
-    "Generate a detailed and engaging description for the provided image. The description should be informative, concise, and tailored to the specified type. Ensure the output is in valid JSON format and adheres strictly to the function schema.\n" +
-    "INPUTS:\n" +
-    `Description Type: ${descriptionType}\n` +
-    "INSTRUCTIONS:\n" +
-    "- Provide a brief overview of the image, including its main subjects, objects, or scenes.\n" +
-    "- Describe the image's visual elements, such as colors, textures, and shapes.\n" +
-    "- Identify any notable objects, people, or scenery in the image.\n" +
-    "- Ensure the description is concise, clear, and engaging for the target audience.\n" +
-    "OUTPUT STRUCTURE:\n" +
-    "1. `imageDescription` (Object): A detailed description of the image, including its main subjects, visual elements, and notable objects or scenery.\n" +
-    "  - `description` (String): A concise and engaging description of the image.\n" +
-    "  - `visualElements` (Array): An array of strings, each describing a visual element in the image (e.g., colors, textures, shapes).\n" +
-    "  - `objectsScenes` (Array): An array of strings, each describing a notable object or scenery in the image.\n" +
-    "Please ensure the output strictly follows the structure described above.\n" +
-    "Reply in JSON format.\n" +
-    "DO NOT REPLY WITH EMPTY FIELDS. Every field must be filled with detailed and descriptive information. An empty field is unacceptable.\n" +
-    "Ensure the output is directly usable by a frontend without requiring additional processing.\n" +
-    "- The output must be in valid JSON format and adhere strictly to the function schema. Any deviation is unacceptable.\n" +
-    "- Do not include ```json` in your answer. Just send the JSON object and nothing else so that it can be parsed by the JSON.parse() function.\n"
-  );
+  return `Generate a detailed and engaging description for the provided image. The description should be informative, concise, and tailored to the specified type: ${descriptionType}. Ensure the output adheres strictly to the function schema.
+
+INSTRUCTIONS:
+- Provide a brief overview of the image, including its main subjects, objects, or scenes.
+- Describe the image's visual elements, such as colors, textures, and shapes.
+- Identify any notable objects, people, or scenery in the image.
+- Ensure the description is concise, clear, and engaging for the target audience.
+- Generate SEO-friendly metadata for the image description.
+
+OUTPUT STRUCTURE:
+1. seoMetadata (Object):
+   - title (String): SEO-optimized title for the image description (50-60 characters)
+   - subtitle (String): SEO-optimized subtitle for the image description (50-100 characters)
+   - description (String): SEO-optimized description summarizing the image (150-160 characters)
+
+2. imageDescription (Object):
+   - description (String): A concise and engaging description of the image.
+   - visualElements (Array of Strings): Each describing a visual element in the image (e.g., colors, textures, shapes).
+   - objectsScenes (Array of Strings): Each describing a notable object or scenery in the image.
+
+Ensure every field is filled with detailed and descriptive information. Empty fields are unacceptable.
+The output must adhere strictly to the function schema. Any deviation is unacceptable.`;
 }

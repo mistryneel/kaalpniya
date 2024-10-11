@@ -7,14 +7,11 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ArrowRightCircle, Share2 } from "lucide-react";
-import { getResponse } from "@/lib/hooks/getAIResponse";
 import Loading from "@/components/Loading";
 import { useRouter } from "next/navigation";
 import Info from "@/components/alerts/Info";
 import { ToolConfig } from "@/lib/types/toolconfig";
 import { Heading } from "@/components/dashboard/Heading";
-
-// Import Select components from Shadcn UI
 import {
   Select,
   SelectTrigger,
@@ -24,64 +21,53 @@ import {
 } from "@/components/ui/select";
 
 interface DisplayOutputProps {
-  params: Record<string, string>;
+  params: { id: string; appName: string };
   toolConfig: ToolConfig;
+  generationData: any;
 }
-
-// Define a type for the output
-type OutputType = Record<string, any>;
 
 export default function DisplayOutput({
   params,
   toolConfig,
+  generationData,
 }: DisplayOutputProps) {
-  const { loading, output, input, linkCopied, copyLink } = getResponse(
-    toolConfig.toolPath,
-    params
-  );
-
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<string>("");
-
-  // State to determine if the device is mobile
   const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [linkCopied, setLinkCopied] = useState(false);
 
   useEffect(() => {
-    if (output && typeof output === "object") {
-      let initialTab = "";
-
-      if (
-        "parameters" in output &&
-        output.parameters &&
-        typeof output.parameters === "object" &&
-        !Array.isArray(output.parameters)
-      ) {
-        // If output has 'parameters' and it's a non-null object (but not an array),
-        // set the first key in parameters as the active tab
-        initialTab = Object.keys(output.parameters)[0] || "";
-      } else {
-        // Else, set the first key in output as the active tab
-        initialTab = Object.keys(output)[0] || "";
-      }
-
-      setActiveTab(initialTab);
-    }
-  }, [output]);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 640); // Adjust breakpoint as needed
-    };
-
-    handleResize(); // Set initial value
-
+    const handleResize = () => setIsMobile(window.innerWidth < 640);
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  if (loading) {
+  useEffect(() => {
+    if (
+      generationData?.output_data &&
+      typeof generationData.output_data === "object"
+    ) {
+      const output = generationData.output_data;
+      let initialTab = "";
+      if (
+        "parameters" in output &&
+        output.parameters &&
+        typeof output.parameters === "object"
+      ) {
+        initialTab = Object.keys(output.parameters)[0] || "";
+      } else {
+        initialTab = Object.keys(output)[0] || "";
+      }
+      setActiveTab(initialTab);
+    }
+  }, [generationData]);
+
+  if (!generationData) {
     return <Loading />;
   }
+
+  const { output_data: output, input_data: input } = generationData;
 
   if (!output || typeof output !== "object") {
     return (
@@ -93,6 +79,16 @@ export default function DisplayOutput({
       </div>
     );
   }
+
+  const copyLink = () => {
+    navigator.clipboard
+      .writeText(window.location.href)
+      .then(() => {
+        setLinkCopied(true);
+        setTimeout(() => setLinkCopied(false), 3000);
+      })
+      .catch((err) => console.error("Could not copy text: ", err));
+  };
 
   const renderProperty = (propertyValue: any): JSX.Element => {
     if (propertyValue === null || propertyValue === undefined) {
@@ -155,23 +151,18 @@ export default function DisplayOutput({
     router.push(`${toolConfig.company.appUrl}`);
   };
 
-  const outputAsRecord = output as OutputType;
-
   // Determine the tabs to display
   let tabs: string[] = [];
   let content: any = {};
 
-  if (
-    "parameters" in outputAsRecord &&
-    typeof outputAsRecord.parameters === "object"
-  ) {
+  if ("parameters" in output && typeof output.parameters === "object") {
     // Use the keys within 'parameters' as tabs
-    tabs = Object.keys(outputAsRecord.parameters);
-    content = outputAsRecord.parameters;
+    tabs = Object.keys(output.parameters);
+    content = output.parameters;
   } else {
     // Use the keys within 'output' as tabs
-    tabs = Object.keys(outputAsRecord);
-    content = outputAsRecord;
+    tabs = Object.keys(output);
+    content = output;
   }
 
   return (
@@ -179,13 +170,11 @@ export default function DisplayOutput({
       <Card className="mx-auto shadow-none border-none">
         <CardHeader>
           <Heading className="font-black">
-            <h1>
-              {"name" in outputAsRecord &&
-              typeof outputAsRecord.name === "string"
-                ? outputAsRecord.name
-                : "Generated Output"}
-            </h1>
+            {generationData.title || "Generated Output"}
           </Heading>
+          {generationData.subtitle && (
+            <p className="text-muted-foreground">{generationData.subtitle}</p>
+          )}
         </CardHeader>
         <CardContent className="p-6">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">

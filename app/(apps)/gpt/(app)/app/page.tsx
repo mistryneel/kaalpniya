@@ -14,6 +14,7 @@ import {
 } from "@radix-ui/react-icons";
 import { Database } from "lucide-react";
 import Info from "@/components/alerts/Info";
+import { UserGenerations } from "@/components/dashboard/UserTextGenerations";
 
 export default async function Page() {
   // Verify that user is logged in
@@ -53,7 +54,7 @@ export default async function Page() {
       .from("generations")
       .select("*")
       .eq("email", user.email)
-      .eq("type", "(apps)/gpt")
+      .ilike("type", "%gpt%")
       .order("created_at", { ascending: false });
 
     if (error) {
@@ -150,6 +151,7 @@ export default async function Page() {
         credits={toolConfig.paywall ? credits : undefined}
         emptyStateComponent={InfoCard}
       />
+      <UserGenerations generations={generations} generationType="gpt" />
     </div>
   );
 }

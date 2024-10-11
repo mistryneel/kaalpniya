@@ -9,6 +9,7 @@ import { IconOpenAI } from "@/components/icons";
 import { GearIcon, Link1Icon, PaddingIcon } from "@radix-ui/react-icons";
 import { Database } from "lucide-react";
 import Info from "@/components/alerts/Info";
+import { UserGenerations } from "@/components/dashboard/UserTextGenerations";
 
 export const metadata = {
   title: toolConfig.metadata.title,
@@ -35,6 +36,7 @@ export default async function Page() {
   // If user is logged in, we check if the tool is paywalled.
   // If it is, we check if the user has a valid purchase & enough credits for one generation
   let credits;
+  let generations = [];
 
   if (user) {
     if (toolConfig.paywall) {
@@ -51,6 +53,19 @@ export default async function Page() {
       if (credits < toolConfig.credits) {
         return <PaymentModal />;
       }
+    }
+
+    const { data, error } = await supabase
+      .from("generations")
+      .select("*")
+      .eq("email", user.email)
+      .ilike("type", "%claude%")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error("Error fetching generations:", error);
+    } else {
+      generations = data;
     }
   }
 
@@ -138,6 +153,7 @@ export default async function Page() {
         credits={toolConfig.paywall ? credits : undefined}
         emptyStateComponent={InfoCard}
       />
+      <UserGenerations generations={generations} generationType="claude" />
     </div>
   );
 }

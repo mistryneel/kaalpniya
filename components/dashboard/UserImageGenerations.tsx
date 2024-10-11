@@ -5,6 +5,7 @@ import { Paragraph } from "@/components/dashboard/Paragraph";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { format } from "date-fns";
 
 interface Generation {
   id: string;
@@ -21,6 +22,11 @@ interface Generation {
 interface UserGenerationsProps {
   generations: Generation[];
   generationType: "replicate/sdxl" | "openai/dalle";
+}
+
+function formatDate(dateString: string) {
+  const date = new Date(dateString);
+  return format(date, "yyyy-MM-dd HH:mm:ss");
 }
 
 export function UserGenerations({
@@ -40,6 +46,11 @@ export function UserGenerations({
     (currentPage - 1) * imagesPerPage,
     currentPage * imagesPerPage
   );
+
+  // Reset selectedImageIndex when page changes
+  useEffect(() => {
+    setSelectedImageIndex(null);
+  }, [currentPage]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -66,6 +77,11 @@ export function UserGenerations({
 
   const generationTitle =
     generationType === "replicate/sdxl" ? "SDXL" : "DALL-E";
+
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+    setSelectedImageIndex(null);
+  };
 
   return (
     <div className="space-y-8 mx-auto pb-20">
@@ -136,7 +152,7 @@ export function UserGenerations({
                 </Dialog>
                 <div className="p-4 space-y-2">
                   <p className="font-semibold text-sm text-gray-600">
-                    {new Date(gen.created_at).toLocaleString()}
+                    {formatDate(gen.created_at)}
                   </p>
                   <p className="font-medium">
                     {generationType === "openai/dalle"
@@ -164,14 +180,14 @@ export function UserGenerations({
           {generations.length > imagesPerPage && (
             <div className="flex justify-center items-center mt-4 space-x-2">
               <button
-                onClick={() => setCurrentPage(1)}
+                onClick={() => handlePageChange(1)}
                 disabled={currentPage === 1}
                 className="px-3 py-2 bg-gray-200 rounded disabled:opacity-50 text-sm"
               >
                 First
               </button>
               <button
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
                 disabled={currentPage === 1}
                 className="px-3 py-2 bg-gray-200 rounded disabled:opacity-50"
               >
@@ -190,7 +206,7 @@ export function UserGenerations({
                     return (
                       <button
                         key={i}
-                        onClick={() => setCurrentPage(pageNumber)}
+                        onClick={() => handlePageChange(pageNumber)}
                         disabled={currentPage === pageNumber}
                         className={`px-3 py-2 rounded ${
                           currentPage === pageNumber
@@ -212,9 +228,9 @@ export function UserGenerations({
               )}
               <button
                 onClick={() =>
-                  setCurrentPage((prev) =>
+                  handlePageChange(
                     Math.min(
-                      prev + 1,
+                      currentPage + 1,
                       Math.ceil(generations.length / imagesPerPage)
                     )
                   )
@@ -228,7 +244,9 @@ export function UserGenerations({
               </button>
               <button
                 onClick={() =>
-                  setCurrentPage(Math.ceil(generations.length / imagesPerPage))
+                  handlePageChange(
+                    Math.ceil(generations.length / imagesPerPage)
+                  )
                 }
                 disabled={
                   currentPage === Math.ceil(generations.length / imagesPerPage)

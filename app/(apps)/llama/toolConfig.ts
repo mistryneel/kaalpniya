@@ -35,7 +35,7 @@ export const toolConfig: ToolConfig = {
   toolPath: "(apps)/llama",
 
   ////// AI config
-  aiModel: "llama3-70b-8192",
+  aiModel: "llama3-groq-70b-8192-tool-use-preview",
   systemMessage:
     "You are a talented personal coach. You are helping a client build his personal brand. Only reply with the JSON, do not return anything else.",
 

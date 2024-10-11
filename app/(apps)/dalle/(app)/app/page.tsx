@@ -54,7 +54,7 @@ export default async function Page() {
       .from("generations")
       .select("*")
       .eq("email", user.email)
-      .eq("type", "openai/dalle")
+      .ilike("type", "%dalle%")
       .order("created_at", { ascending: false });
 
     console.log(data);

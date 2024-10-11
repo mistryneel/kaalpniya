@@ -12,6 +12,29 @@ export const functionSchema = [
       parameters: {
         type: "object",
         properties: {
+          seoMetadata: {
+            type: "object",
+            properties: {
+              title: {
+                type: "string",
+                description:
+                  "SEO-optimized title for the personal branding strategy (50-60 characters)",
+              },
+              subtitle: {
+                type: "string",
+                description:
+                  "SEO-optimized subtitle for the personal branding strategy (50-100 characters)",
+              },
+              description: {
+                type: "string",
+                description:
+                  "SEO-optimized description summarizing the personal branding strategy (150-160 characters)",
+              },
+            },
+            required: ["title", "subtitle", "description"],
+            additionalProperties: false,
+            description: "SEO metadata for the personal branding strategy",
+          },
           personalBrandPositioning: {
             type: "object",
             properties: {
@@ -92,6 +115,7 @@ export const functionSchema = [
           },
         },
         required: [
+          "seoMetadata",
           "personalBrandPositioning",
           "contentStrategy",
           "onlinePresence",

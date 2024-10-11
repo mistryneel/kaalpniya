@@ -35,14 +35,18 @@ export function generatePrompt(body: any) {
     "- Offer a clear, actionable plan with steps, expected results, and metrics for tracking success. Each suggestion should be directly applicable and include tools, platforms, or methodologies not widely recognized.\n" +
     "- All suggestions must be feasible within the startup's current budget and resources.\n" +
     "Please ensure that the output strictly follows the structure described below:\n" +
-    "1. `traditionalGrowthTactics` (Object): Detailed plans for each traditional growth method.\n" +
+    "1. `seoMetadata` (Object): SEO-optimized metadata for the growth plan.\n" +
+    "  - `title` (String): An engaging, SEO-optimized title for the growth plan (50-60 characters).\n" +
+    "  - `subtitle` (String): A compelling, SEO-optimized subtitle for the growth plan (50-100 characters).\n" +
+    "  - `description` (String): A concise, SEO-optimized description summarizing the growth plan (150-160 characters).\n" +
+    "2. `traditionalGrowthTactics` (Object): Detailed plans for each traditional growth method.\n" +
     "  - Each key within this object represents a growth tactic, mapping to an object that includes:\n" +
     "    - `tacticName` (String): The name of the tactic.\n" +
     "    - `specificActions` (Array): An array of strings, each detailing a highly specific and actionable step for implementing this tactic, with suggestions for advanced strategies and tools.\n" +
     "    - `toolsRecommended` (Array): An array of strings, listing advanced or less commonly known tools recommended for the tactic.\n" +
     "    - `keywords` (Array): (ONLY FOR SEO) An array of strings, listing at least 10 possible keywords the user can target & explain how the user can validate which keywords to target (volume, competitiveness, ..).\n" +
     "    - `expectedImpact` (String): A detailed analysis of the potential impact, including quantitative or qualitative forecasts.\n" +
-    "2. `creativeGrowthHacks` (Array): An array of innovative campaigns and activities.\n" +
+    "3. `creativeGrowthHacks` (Array): An array of innovative campaigns and activities.\n" +
     "  - Each element in the array is an object that must include:\n" +
     "    - `campaignName` (String): The name of the campaign.\n" +
     "    - `description` (String): A detailed description of the campaign, offering innovative and unorthodox strategies not commonly utilized.\n" +

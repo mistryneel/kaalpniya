@@ -1,8 +1,10 @@
-import { generateVisionResponse } from "@/lib/services/openai/vision";
-import { uploadToSupabase } from "@/lib/hooks/uploadToSupabase";
 import { NextResponse, NextRequest } from "next/server";
-import { reduceUserCredits } from "@/lib/hooks/reduceUserCredits";
 import { createClient } from "@/lib/utils/supabase/server";
+import { uploadToSupabase } from "@/lib/hooks/uploadToSupabase";
+import { reduceUserCredits } from "@/lib/hooks/reduceUserCredits";
+import { functionSchema } from "@/app/(apps)/vision/schema";
+import { ChatOpenAI } from "@langchain/openai";
+import { HumanMessage, SystemMessage } from "@langchain/core/messages";
 
 export async function POST(request: NextRequest) {
   const supabase = createClient();
@@ -29,30 +31,43 @@ export async function POST(request: NextRequest) {
     const { toolConfig } = await import(`@/app/${toolPath}/toolConfig`);
     const { generatePrompt } = await import(`@/app/${toolPath}/prompt`);
 
-    // Generate prompt and function call
+    // Generate prompt
     const prompt = generatePrompt(requestBody);
 
-    // Generate response from OpenAI
-    const responseData = await generateVisionResponse(
-      prompt,
-      imageUrl,
-      toolConfig.aiModel,
-      toolConfig.systemMessage
+    // Initialize ChatOpenAI
+    const chat = new ChatOpenAI({
+      modelName: toolConfig.aiModel,
+      temperature: 0,
+    });
+
+    // Prepare the chat with structured output
+    const chatWithStructuredOutput = chat.withStructuredOutput(
+      functionSchema.parameters
     );
 
-    // Parse JSON and store in database
-    const openAIResponse = responseData.choices[0].message.content;
+    // Generate response from OpenAI
+    console.log("GPT Vision request received for image: ", imageUrl);
+    const response = await chatWithStructuredOutput.invoke([
+      new SystemMessage(
+        toolConfig.systemMessage || "You are a helpful assistant."
+      ),
+      new HumanMessage({
+        content: [
+          { type: "text", text: prompt },
+          {
+            type: "image_url",
+            image_url: {
+              url: imageUrl,
+            },
+          },
+        ],
+      }),
+    ]);
 
-    // Since the response from GPT Vision is not always a valid JSON, we need to check if it is a valid JSON before parsing it
-    let parsedOpenAIResponse;
-    try {
-      parsedOpenAIResponse = JSON.parse(openAIResponse || "");
-      console.log("Parsed OpenAI Response: ", parsedOpenAIResponse);
-    } catch (parseError) {
-      console.error("Parsing Error: ", parseError);
-    }
+    console.log("Parsed OpenAI Response: ", response);
 
-    const responseForSupabase = parsedOpenAIResponse || openAIResponse;
+    // The response should now include seoMetadata directly
+    const responseForSupabase = response;
 
     const supabaseResponse = await uploadToSupabase(
       requestBody,

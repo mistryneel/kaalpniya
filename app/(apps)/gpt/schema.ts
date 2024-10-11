@@ -6,6 +6,27 @@ export const functionSchema = [
     parameters: {
       type: "object",
       properties: {
+        seoMetadata: {
+          type: "object",
+          properties: {
+            title: {
+              type: "string",
+              description:
+                "SEO-optimized title for the growth plan (50-60 characters)",
+            },
+            subtitle: {
+              type: "string",
+              description:
+                "SEO-optimized subtitle for the growth plan (50-100 characters)",
+            },
+            description: {
+              type: "string",
+              description:
+                "SEO-optimized description summarizing the growth plan (150-160 characters)",
+            },
+          },
+          required: ["title", "subtitle", "description"],
+        },
         traditionalGrowthTactics: {
           type: "array",
           items: {
@@ -86,7 +107,11 @@ export const functionSchema = [
           description: "An array of creative growth hacking campaigns.",
         },
       },
-      required: ["traditionalGrowthTactics", "creativeGrowthHacks"],
+      required: [
+        "seoMetadata",
+        "traditionalGrowthTactics",
+        "creativeGrowthHacks",
+      ],
     },
   },
 ];

@@ -12,6 +12,29 @@ export const functionSchema = [
       parameters: {
         type: "object",
         properties: {
+          seoMetadata: {
+            type: "object",
+            properties: {
+              title: {
+                type: "string",
+                description:
+                  "SEO-optimized title for the business plan (50-60 characters)",
+              },
+              subtitle: {
+                type: "string",
+                description:
+                  "SEO-optimized subtitle for the business plan (50-100 characters)",
+              },
+              description: {
+                type: "string",
+                description:
+                  "SEO-optimized description summarizing the business plan (150-160 characters)",
+              },
+            },
+            required: ["title", "subtitle", "description"],
+            additionalProperties: false,
+            description: "SEO metadata for the business plan",
+          },
           businessIdea: {
             type: "object",
             properties: {
@@ -135,6 +158,7 @@ export const functionSchema = [
           },
         },
         required: [
+          "seoMetadata",
           "businessIdea",
           "targetMarket",
           "revenueStreams",

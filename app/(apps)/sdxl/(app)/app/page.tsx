@@ -54,7 +54,7 @@ export default async function Page() {
       .from("generations")
       .select("*")
       .eq("email", user.email)
-      .eq("type", "replicate/sdxl")
+      .ilike("type", "%sdxl%")
       .order("created_at", { ascending: false });
 
     if (error) {

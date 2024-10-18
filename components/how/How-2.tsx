@@ -52,7 +52,7 @@ export default function How() {
         <rect
           width="100%"
           height="100%"
-          stroke-width="0"
+          strokeWidth="0"
           fill="url(#background-pattern)"
         />
       </svg>

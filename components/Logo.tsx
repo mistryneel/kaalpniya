@@ -9,7 +9,6 @@ export default function Logo() {
         alt="Logo"
         width={400}
         height={100}
-        layout="fixed"
         quality={100}
         className="w-48"
       />

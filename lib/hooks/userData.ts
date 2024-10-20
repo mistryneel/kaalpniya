@@ -58,13 +58,15 @@ export async function updatePurchasesTable(
   userEmail: string,
   purchaseId: string,
   payload: any,
-  purchaseType: string
+  purchaseType: string,
+  provider?: string
 ) {
   const insertSubscriptionsPayload = {
-    user_email: userEmail.toLowerCase(),
+    user_email: userEmail ? userEmail.toLowerCase() : null,
     purchase_id: purchaseId,
     payload: payload,
     type: purchaseType,
+    provider: provider || "lemonsqueezy",
   };
 
   const { error: insertError } = await supabase

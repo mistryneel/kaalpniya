@@ -13,8 +13,8 @@ type DocumentMetadata = {
 function sanitizeText(text: string): string {
   return text
     .replace(/\u0000/g, "") // Remove null characters
-    .replace(/[^\x20-\x7E]/g, "") // Remove non-printable ASCII characters
-    .trim(); // Trim whitespace from start and end
+    .replace(/[^\x20-\x7E\n\r\t]/g, "") // Remove non-printable ASCII characters except common whitespace
+    .trim();
 }
 
 export async function POST(request: NextRequest) {
@@ -22,100 +22,111 @@ export async function POST(request: NextRequest) {
 
   const {
     data: { user },
+    error: authError,
   } = await supabase.auth.getUser();
 
   const userId = user?.id;
 
   if (!userId) {
-    return NextResponse.json({
-      error: "You must be logged in to ingest data",
-    });
+    return NextResponse.json(
+      { error: "You must be logged in to ingest data" },
+      { status: 401 }
+    );
   }
 
   const { fileUrl, documentId } = await request.json();
 
+  if (!fileUrl || typeof fileUrl !== "string") {
+    return NextResponse.json(
+      { error: "A valid file URL is required" },
+      { status: 400 }
+    );
+  }
+
   if (!documentId) {
-    return NextResponse.json({
-      error: "Document ID is required",
-    });
+    return NextResponse.json(
+      { error: "Document ID is required" },
+      { status: 400 }
+    );
   }
 
   async function fetchDocumentsFromUrl(url: string) {
-    const response = await fetch(url);
-    const buffer = await response.arrayBuffer();
-    const loader = new PDFLoader(new Blob([buffer]));
-    const rawDocs = await loader.load();
+    try {
+      const response = await fetch(url);
 
-    const textSplitter = new RecursiveCharacterTextSplitter({
-      chunkSize: 1000,
-      chunkOverlap: 200,
-    });
+      if (!response.ok) {
+        throw new Error(`Failed to fetch PDF: ${response.statusText}`);
+      }
 
-    const splitDocs = await textSplitter.splitDocuments(rawDocs);
+      const buffer = await response.arrayBuffer();
+      const loader = new PDFLoader(new Blob([buffer]));
+      const rawDocs = await loader.load();
 
-    const pages = rawDocs.map((doc) => doc.pageContent);
-
-    const documentsWithPages = splitDocs.map((splitDoc) => {
-      const pageIndex = pages.findIndex((page) =>
-        page.includes(splitDoc.pageContent)
-      );
-      return new Document({
-        pageContent: sanitizeText(splitDoc.pageContent),
-        metadata: {
-          document_id: documentId,
-          page: pageIndex + 1,
-        },
+      const textSplitter = new RecursiveCharacterTextSplitter({
+        chunkSize: 1000,
+        chunkOverlap: 200,
       });
-    });
 
-    return documentsWithPages;
+      const splitDocs = await textSplitter.splitDocuments(rawDocs);
+
+      const pages = rawDocs.map((doc) => doc.pageContent);
+
+      const documentsWithPages = splitDocs.map((splitDoc) => {
+        const pageIndex = pages.findIndex((page) =>
+          page.includes(splitDoc.pageContent)
+        );
+        return new Document<DocumentMetadata>({
+          pageContent: sanitizeText(splitDoc.pageContent),
+          metadata: {
+            document_id: documentId,
+            page: pageIndex + 1,
+          },
+        });
+      });
+
+      return documentsWithPages;
+    } catch (error) {
+      console.error("Error fetching documents from URL:", error);
+      throw error;
+    }
   }
 
   try {
     const documents = await fetchDocumentsFromUrl(fileUrl);
 
     const embeddings = new OpenAIEmbeddings();
-    const embeddedDocuments = await Promise.all(
-      documents.map(async (doc) => {
-        try {
-          const [embedding] = await embeddings.embedDocuments([
-            doc.pageContent,
-          ]);
-          return { doc, embedding };
-        } catch (error) {
-          console.error("Error embedding document:", error);
-          return null;
-        }
-      })
-    );
 
-    const validEmbeddings = embeddedDocuments.filter(
-      (
-        item
-      ): item is { doc: Document<DocumentMetadata>; embedding: number[] } =>
-        item !== null
-    );
+    // Extract page contents for embedding
+    const texts = documents.map((doc) => doc.pageContent);
 
-    const embeddingsData = validEmbeddings.map(({ doc, embedding }) => ({
+    // Batch embed all texts in a single request
+    const embeddingsArray = await embeddings.embedDocuments(texts);
+
+    const embeddingsData = documents.map((doc, index) => ({
       document_id: documentId,
       content: doc.pageContent,
-      embedding: embedding,
+      embedding: embeddingsArray[index],
       metadata: doc.metadata,
     }));
 
-    const { error } = await supabase.from("embeddings").insert(embeddingsData);
+    const { error: supabaseError } = await supabase
+      .from("embeddings")
+      .insert(embeddingsData);
 
-    if (error) {
-      console.error("Supabase insertion error:", error);
-      throw error;
+    if (supabaseError) {
+      console.error("Supabase insertion error:", supabaseError);
+      throw supabaseError;
     }
 
     return NextResponse.json({
-      text: "Successfully embedded pdf",
+      text: "Successfully embedded PDF",
       id: documentId,
     });
   } catch (error) {
     console.error("Error in POST function:", error);
-    return NextResponse.json({ error: "Failed to ingest your data" });
+    return NextResponse.json(
+      { error: "Failed to ingest your data" },
+      { status: 500 }
+    );
   }
 }

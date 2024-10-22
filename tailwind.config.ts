@@ -122,7 +122,7 @@ const config = {
     styled: true,
     themes: [
       {
-        anotherwrapper: {
+        kaalpniya: {
           primary: "#18181b",
           secondary: "#0f0f0f",
           accent: "#171717",

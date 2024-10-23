@@ -21,13 +21,13 @@ export default function How() {
         <div className="max-w-3xl mx-auto bg-base-100 max-md:px-8 max-w-3xl">
           <h2 className="font-extrabold text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-tight mb-2">
             <span className="bg-accent text-white px-2 md:px-4 ml-1 md:ml-1.5 leading-relaxed whitespace-nowrap">
-              Accurate image descriptions
+              Stunning Photos   
             </span>
+            {" "}
             in 3 steps
           </h2>
           <p className="mt-4 md:mt-8 text-base-content max-w-[600px] mx-auto">
-            Our AI will carefully analyze your image and generate a good image
-            description. Bla bla bla. It's amazing!
+            Our AI will train on your photos and generate good photos in different settings!
           </p>
         </div>
         <div className="max-w-5xl mx-auto py-8 mb-20">

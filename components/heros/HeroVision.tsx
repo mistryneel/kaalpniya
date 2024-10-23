@@ -6,14 +6,16 @@ export default function Hero() {
       {" "}
       <section className="pb-24 p-4 text-center items-center flex flex-col">
         <h2 className="max-w-5xl mt-16 md:mt-18 font-extrabold text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-tight mb-2">
-          Generate accurate image descriptions
+          Create Your Dream Moments
           <span className="bg-base-100 text-base-content px-2 md:px-4 ml-1 md:ml-1.5 leading-relaxed whitespace-nowrap">
             with AI
           </span>{" "}
+          <div className="text-base-content">
+            - No Camera, No Limits
+          </div>
         </h2>{" "}
         <h1 className="mt-4 md:mt-6 max-w-[600px]">
-          Build your own GPT-4o vision app in minutes with this demo app that
-          uses OpenAI, Cloudflare R2 & Supabase.
+          Generate stunning photos of yourself using AI
         </h1>
         <div className="mt-8">
           <div className="flex md:flex-row flex-col items-center space-x-4">
@@ -35,23 +37,7 @@ export default function Hero() {
                   d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
                 />
               </svg>
-              Generate descriptions
-            </a>
-            <a className="btn btn-ghost text-content" href="/apps">
-              See other demo apps
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 32 32"
-                width="18"
-                height="18"
-                fill="none"
-                stroke="currentcolor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="4"
-              >
-                <path d="M22 6 L30 16 22 26 M30 16 L2 16"></path>
-              </svg>
+              Generate Photos
             </a>
           </div>
         </div>

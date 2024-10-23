@@ -28,7 +28,7 @@ export async function DashboardLayout({
   return (
     <>
       <div className="flex overflow-hidden bg-gray-100">
-        <Sidebar user={user} />
+        {/* <Sidebar user={user} /> */}
         <div className="bg-gray-100 flex-1 overflow-y-auto">
           <div className="flex-1 bg-white border border-transparent lg:border-neutral-200 overflow-y-auto">
             <Suspense fallback={<LoadingSpinner />}>

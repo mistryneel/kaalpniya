@@ -4,7 +4,7 @@ export const appConfig = {
   company: {
     name: "Kaalpniya",
     theme: "kaalpniya",
-    homeUrl: "http://localhost:3000",
+    homeUrl: process.env.PRODUCTION_URL || "http://localhost:3000",
     appUrl: "/",
     description:
       "Build your own GPT-4o vision AI wrapper in minutes with this demo app that uses OpenAI, Cloudflare R2 & Supabase.",

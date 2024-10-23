@@ -1,8 +1,6 @@
 import { Suspense } from "react";
 import { Sidebar } from "@/components/dashboard/Sidebar";
 import { twMerge } from "tailwind-merge";
-import { ContentFooter } from "@/components/dashboard/Footer";
-import Footer from "@/components/footers/Footer-1";
 import { createClient } from "@/lib/utils/supabase/server";
 import { Container } from "@/components/dashboard/Container";
 import { Heading } from "@/components/dashboard/Heading";
@@ -31,8 +29,8 @@ export async function DashboardLayout({
     <>
       <div className="flex overflow-hidden bg-gray-100">
         <Sidebar user={user} />
-        <div className="lg:pl-2 lg:pt-2 bg-gray-100 flex-1 overflow-y-auto">
-          <div className="flex-1 bg-white lg:rounded-tl-xl border border-transparent lg:border-neutral-200 overflow-y-auto">
+        <div className="bg-gray-100 flex-1 overflow-y-auto">
+          <div className="flex-1 bg-white border border-transparent lg:border-neutral-200 overflow-y-auto">
             <Suspense fallback={<LoadingSpinner />}>
               <MainContent
                 toolConfig={toolConfig}
@@ -42,16 +40,9 @@ export async function DashboardLayout({
                 {children}
               </MainContent>
             </Suspense>
-            <ContentFooter />
           </div>
         </div>
       </div>
-      <Suspense fallback={<LoadingSpinner />}>
-        <Footer
-          companyConfig={toolConfig.company!}
-          footerConfig={toolConfig.footerApp!}
-        />
-      </Suspense>
     </>
   );
 }
@@ -90,7 +81,7 @@ async function MainContent({
           <Heading className="font-black">
             {user ? `Hi ${user.email}!` : "Hi there!"}
           </Heading>
-          <Paragraph className="max-w-xl mt-4">
+          <Paragraph className="mt-4 mb-4">
             Hope you're having a great day! You can try out the app below.
             {credits !== undefined && (
               <Highlight> You still have {credits} credits left.</Highlight>

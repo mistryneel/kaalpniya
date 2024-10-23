@@ -81,7 +81,7 @@ export const generateAIResponse = (
         const baseUrl = toolConfig.company.homeUrl.startsWith("/")
           ? toolConfig.company.homeUrl.slice(1)
           : toolConfig.company.homeUrl;
-        router.push(`/${baseUrl}/${id}`);
+        router.push(`/${id}`);
       }
     } catch (error) {
       console.error("Failed to generate responses:", error);

@@ -11,21 +11,6 @@ export default function NotFoundPage() {
         <p className="text-lg md:text-xl font-semibold">
           Oops. This page does not exist.
         </p>
-        <Dock>
-          <DockIcon href="/">
-            <HomeIcon className="h-6 w-6" />
-          </DockIcon>
-          <DockIcon href="https://docs.anotherwrapper.com">
-            <FileCodeIcon className="h-6 w-6" />
-          </DockIcon>
-          <DockIcon href="https://anotherwrapper.lemonsqueezy.com/affiliates">
-            <IconMoneybag className="h-6 w-6" />
-          </DockIcon>
-
-          <DockIcon href="https://apps.anotherwrapper.com/">
-            <LaptopIcon className="h-6 w-6" />
-          </DockIcon>
-        </Dock>
       </div>
     </section>
   );

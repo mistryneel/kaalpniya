@@ -9,6 +9,8 @@ export async function POST(request: NextRequest) {
   const { email } = await request.json();
   console.log(`Received email: ${email}`);
 
+  console.log('redirectTo',redirectTo);
+
   try {
     console.log(`Attempting to send magic link to: ${email}`);
     const { error } = await supabase.auth.signInWithOtp({

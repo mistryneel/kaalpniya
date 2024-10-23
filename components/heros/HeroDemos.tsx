@@ -26,7 +26,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="bg-base-100 p-4 text-center pt-16 md:pt-18 items-center flex flex-col">
+    <section className="bg-base-100 p-4 text-center p-16 md:pt-18 items-center flex flex-col">
       <div className="max-w-3xl mx-auto">
         <div className="max-md:px-8 max-w-3xl">
           <h2 className="font-extrabold text-2xl sm:text-3xl md:text-4xl tracking-tight mb-2">

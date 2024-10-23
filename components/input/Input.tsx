@@ -9,10 +9,8 @@ import { type ToolConfig } from "@/lib/types/toolconfig";
 import AppInfo from "@/components/input/AppInfo";
 import { LoaderCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import Login from "@/components/input/login";
 
 interface InputCaptureProps {
-  emptyStateComponent: ReactElement;
   toolConfig: ToolConfig;
   userEmail?: string;
   credits?: number;
@@ -20,7 +18,6 @@ interface InputCaptureProps {
 
 export default function InputCapture({
   toolConfig,
-  emptyStateComponent,
   userEmail,
   credits: initialCredits,
 }: InputCaptureProps) {
@@ -58,73 +55,41 @@ export default function InputCapture({
   return (
     <section className="pb-20 w-full mx-auto">
       <div className="flex flex-col md:flex-row items-stretch gap-8 relative">
-        <div className="w-full md:w-1/2 flex">
-          {!userEmail ? (
-            <div className="w-full flex items-center justify-center">
-              <Login />
-            </div>
-          ) : (
-            <div className="flex items-center w-full justify-center">
-              <form onSubmit={handleSubmit} className="w-full">
-                <div className="flex flex-col items-center">
-                  <div className="w-full mb-5">
-                    {toolConfig.type === "vision" && (
-                      <Upload
-                        uploadConfig={toolConfig.upload}
-                        setImageUrl={setImageUrl}
-                      />
-                    )}
-                    <RenderFields
-                      fields={toolConfig.fields!}
-                      formData={formData}
-                      handleChange={handleChange}
-                    />
-                  </div>
+        <div className="w-full md:w-full flex">
+          <div className="flex items-center w-full justify-center">
+            <form onSubmit={handleSubmit} className="w-full">
+              <div className="flex flex-col items-center">
+                <div className="w-full mb-5">
+                  <Upload
+                    uploadConfig={toolConfig.upload}
+                    setImageUrl={setImageUrl}
+                  />
+                  <RenderFields
+                    fields={toolConfig.fields!}
+                    formData={formData}
+                    handleChange={handleChange}
+                  />
                 </div>
-                <div className="mb-5 flex justify-center">
-                  <Button
-                    disabled={
-                      (!imageUrl && toolConfig.type === "vision") || loading
-                    }
-                    type="submit"
-                    className="bg-accent hover:bg-accent/80 text-white w-full"
-                  >
-                    {!loading ? (
-                      toolConfig.submitText
-                    ) : (
-                      <span className="flex items-center justify-center">
-                        <LoaderCircle className="w-4 h-4 mr-2 text-green-500 animate-spin" />
-                        {toolConfig.submitTextGenerating}
-                      </span>
-                    )}
-                  </Button>
-                </div>
-              </form>
-            </div>
-          )}
+              </div>
+              <div className="mb-5 flex justify-center">
+                <Button
+                  disabled={!imageUrl || loading}
+                  type="submit"
+                  className="bg-accent hover:bg-accent/80 text-white w-full"
+                >
+                  {!loading ? (
+                    toolConfig.submitText
+                  ) : (
+                    <span className="flex items-center justify-center">
+                      <LoaderCircle className="w-4 h-4 mr-2 text-green-500 animate-spin" />
+                      {toolConfig.submitTextGenerating}
+                    </span>
+                  )}
+                </Button>
+              </div>
+            </form>
+          </div>
         </div>
-        <div className="w-full md:w-1/2">
-          {toolConfig.type === "gpt" ||
-          toolConfig.type === "groq" ||
-          toolConfig.type === "claude" ||
-          toolConfig.type === "vision" ? (
-            emptyStateComponent
-          ) : (toolConfig.type === "sdxl" || toolConfig.type === "dalle") &&
-            !generatedImage ? (
-            emptyStateComponent
-          ) : (toolConfig.type === "sdxl" || toolConfig.type === "dalle") &&
-            generatedImage ? (
-            <AppInfo title="Your image has been generated.">
-              <img
-                src={generatedImage}
-                className="mt-10 w-full group-hover:scale-105 duration-300 transition rounded-xl"
-              />
-              <p className="text-sm mt-4">
-                Fill in the form on the right to generate a different image.
-              </p>
-            </AppInfo>
-          ) : null}
-        </div>{" "}
       </div>
     </section>
   );

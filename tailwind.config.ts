@@ -123,7 +123,7 @@ const config = {
     themes: [
       {
         kaalpniya: {
-          primary: "#18181b",
+          primary: "#d3d3d3",
           secondary: "#0f0f0f",
           accent: "#171717",
           neutral: "#707070",

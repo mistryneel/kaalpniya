@@ -1,31 +1,85 @@
 /// Core Website config
-export const companyConfig = {
+export const appConfig = {
   ////// Base config used mainly for layout (@/components/navbar/Navbar-1.tsx and @/components/footer/Footer-1.tsx)
   company: {
     name: "Kaalpniya",
     theme: "kaalpniya",
-    homeUrl: "https://kaalpniya.com",
+    homeUrl: "http://localhost:3000",
     appUrl: "/",
-    description: "Build your AI startup in hours using our demo apps!",
-    logo: "/logo.png",
-    navbarLinks: [
-      { label: "Home", href: "https://kaalpniya.com" },
-      { label: "Other apps", href: "https://kaalpniya.com" },
-      { label: "Blog", href: "/blog" },
-    ],
+    description:
+      "Build your own GPT-4o vision AI wrapper in minutes with this demo app that uses OpenAI, Cloudflare R2 & Supabase.",
+    logo: "https://cdn2.iconfinder.com/data/icons/custom-ios-14-1/60/Camera-512.png",
+    navbarLinks: [],
+  },
+
+  ////// SEO stuff
+  metadata: {
+    title: "GPT-4o vision AI wrapper demo application | Kaalpniya",
+    description:
+      "Build your own GPT-4o vision AI wrapper in minutes with this demo app that uses OpenAI, Cloudflare R2 & Supabase.",
+    og_image: "https://kaalpniya.com/og.png",
+    canonical: "https://kaalpniya.com/apps/vision",
   },
 
   ////// UI config
   navbarLanding: {
+    bgColor: "primary",
+    textColor: "neutral",
+    buttonColor: "accent",
+  },
+
+  navbarApp: {
     bgColor: "base-100",
     textColor: "base-content",
-    buttonColor: "primary",
+    buttonColor: "accent",
   },
 
   footerLanding: {
-    bgColor: "base-200",
-    textColor: "base-content",
+    bgColor: "primary",
+    textColor: "neutral",
   },
+
+  footerApp: {
+    bgColor: "primary",
+    textColor: "white",
+  },
+
+  ////// Paywall
+  paywall: true,
+  credits: 5,
+
+  ////// Location
+  toolPath: "(apps)/vision",
+
+  ////// AI config
+  aiModel: "gpt-4o",
+
+  ////// Storage config
+  upload: {
+    path: "vision",
+    apiEndpoint: "/api/upload/image",
+  },
+
+  ////// Form input
+  type: "vision",
+  fields: [
+    {
+      label: "📝 Description Type",
+      name: "descriptionType",
+      type: "select",
+      options: [
+        "Short and concise",
+        "Detailed and descriptive",
+        "Humorous and creative",
+      ],
+      required: true,
+    },
+  ],
+  submitText: "Generate image description 🌄",
+  submitTextGenerating: "Analyzing your image...",
+  responseTitle: "Your image description has been generated",
+  responseSubTitle:
+    "The output below has been automatically rendered based on the JSON schema used by the AI model. You can use this to quickly prototype your application.",
 };
 
 /// Core Website config
@@ -47,10 +101,10 @@ export const tosUrl = "https://kaalpniya.com/terms";
 export const authImage = "/hero.webp";
 
 // Inside routing
-export const homePage = "/home";
+export const homePage = "/";
 const getRedirectUrl = () => {
   const baseUrl = process.env.PRODUCTION_URL || "http://localhost:3000";
-  return `${baseUrl}/auth/confirm?next=/home`;
+  return `${baseUrl}/auth/confirm`;
 };
 
 export const redirectTo = getRedirectUrl();

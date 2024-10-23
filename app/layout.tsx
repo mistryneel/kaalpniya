@@ -4,7 +4,7 @@ import "./globals.css";
 import {
   defaultTitle,
   defaultDescription,
-  companyConfig,
+  appConfig,
   defaultOgImage,
   favicon,
   defaultKeywords,
@@ -15,17 +15,17 @@ export const metadata = {
   title: `${defaultTitle}`,
   description: defaultDescription,
   keywords: defaultKeywords,
-  icons: [{ rel: "icon", url: `${companyConfig.company.homeUrl}${favicon}` }],
+  icons: [{ rel: "icon", url: `${appConfig.company.homeUrl}${favicon}` }],
   openGraph: {
-    url: companyConfig.company.homeUrl,
-    title: `${defaultTitle} | ${companyConfig.company.name}`,
+    url: appConfig.company.homeUrl,
+    title: `${defaultTitle} | ${appConfig.company.name}`,
     description: defaultDescription,
     images: [
       {
-        url: `${companyConfig.company.homeUrl}${defaultOgImage}`,
+        url: `${appConfig.company.homeUrl}${defaultOgImage}`,
         width: 800,
         height: 600,
-        alt: `${companyConfig.company.name} logo`,
+        alt: `${appConfig.company.name} logo`,
       },
     ],
   },
@@ -40,7 +40,7 @@ export default function RootLayout({
     <Providers>
       <main
         className={GeistSans.className + " text-base-content"}
-        data-theme={companyConfig.company.theme}
+        data-theme={appConfig.company.theme}
       >
         {children}
       </main>

@@ -1,6 +1,4 @@
 import { Suspense } from "react";
-import { Sidebar } from "@/components/dashboard/Sidebar";
-import { twMerge } from "tailwind-merge";
 import { createClient } from "@/lib/utils/supabase/server";
 import { Container } from "@/components/dashboard/Container";
 import { Heading } from "@/components/dashboard/Heading";
@@ -28,7 +26,6 @@ export async function DashboardLayout({
   return (
     <>
       <div className="flex overflow-hidden bg-gray-100">
-        {/* <Sidebar user={user} /> */}
         <div className="bg-gray-100 flex-1 overflow-y-auto">
           <div className="flex-1 bg-white border border-transparent lg:border-neutral-200 overflow-y-auto">
             <Suspense fallback={<LoadingSpinner />}>
@@ -70,7 +67,7 @@ async function MainContent({
       .select("*")
       .eq("id", user.id)
       .single();
-    credits = profile.credits;
+    credits = profile?.credits;
   }
 
   return (

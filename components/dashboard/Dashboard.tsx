@@ -30,7 +30,7 @@ export default async function Page() {
         .eq("id", user.id)
         .single();
 
-      credits = profile.credits;
+      credits = profile?.credits;
 
       console.table(profile);
 
